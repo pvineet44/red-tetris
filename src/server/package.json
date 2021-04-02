@@ -1,0 +1,14 @@
+{
+  "name": "red-tetris-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest --config=jest.config.js --coverage"
+  },
+  "author": "vparekh mashar",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
