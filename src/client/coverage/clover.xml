@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1617599740854" clover="3.2.0">
-  <project timestamp="1617599740854" name="All files">
+<coverage generated="1617600483325" clover="3.2.0">
+  <project timestamp="1617600483325" name="All files">
     <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2" elements="22" coveredelements="22" complexity="0" loc="18" ncloc="18" packages="1" files="1" classes="1"/>
     <file name="tetris.js" path="/Users/apco/Desktop/projects/red-tetris/src/client/components/tetris.js">
       <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>

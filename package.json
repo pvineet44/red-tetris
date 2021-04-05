@@ -11,13 +11,15 @@
     "clean-client": "cd src/client && pwd && rm -rf node_modules",
     "clean": "yarn clean-server && yarn clean-client",
     "clean-install": "yarn clean && yarn install",
+    "test-server": "cd src/server && echo TESTING SERVER && yarn test",
+    "test-client": "cd src/client && echo TESTING CLIENT && yarn test",
+    "test": "yarn test-server && yarn test-client", 
     "hello": "echo hello",
     "eslint": "eslint src",
     "client-dist": "NODE_ENV=production webpack --progress --colors",
     "client-dev": "webpack-dev-server --colors --hot --inline --host 0.0.0.0 --port 8080",
     "srv-dev": "DEBUG=tetris:* babel-watch -w src src/server/main.js",
     "srv-dist": "DEBUG=tetris:* babel src --out-dir dist",
-    "test": "mocha --require babel-core/register --reporter spec",
     "coverage": "NODE_ENV=test nyc --include src --all -r text -r lcov -r text --require babel-core/register mocha "
   },
   "nyc": {
