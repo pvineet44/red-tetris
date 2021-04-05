@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "build": "yarn install",
     "test": "jest --config=jest.config.js --coverage"
   },
   "author": "vparekh mashar",

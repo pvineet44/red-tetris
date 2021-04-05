@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 
 export const Tetris = () => {
   return (
-    <Board/>
+    <div className="board-wrapper">
+      Hello <Board/>
+    </div>
     )
   }
   

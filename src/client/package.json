@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "yarn install",
     "test": "jest --config=jest.config.js --coverage",
     "start": "react-scripts start"
   },
