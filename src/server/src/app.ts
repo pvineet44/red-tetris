@@ -10,7 +10,7 @@ const PORT: string | number = process.env.PORT || 4000
 app.use(cors())
 app.use(routes)
 
-const uri: string = `mongodb+srv://admin:admin@cluster0.s5t7m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+const uri: string = 'mongodb+srv://admin:admin@cluster0.s5t7m.mongodb.net/red-tetris'
 const options = { useNewUrlParser: true, useUnifiedTopology: true }
 mongoose.set("useFindAndModify", false)
 
