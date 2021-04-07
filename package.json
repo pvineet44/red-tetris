@@ -14,7 +14,7 @@
     "clean-install": "npm run clean && npm run install",
     "test-server": "cd src/server && echo TESTING SERVER && npm run test",
     "test-client": "cd src/client && echo TESTING CLIENT && npm run test",
-    "test": "npm run test-server && npm run test-client", 
+    "test": "npm run test-server && npm run test-client",
     "hello": "echo hello",
     "eslint": "eslint src",
     "client-dist": "NODE_ENV=production webpack --progress --colors",
