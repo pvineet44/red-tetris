@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/server/dist/app`.js",
-    "install-server": "cd src/server && pwd && npm run install",
-    "install-client": "cd src/client && pwd && npm run install",
+    "install-server": "cd src/server && pwd && npm install",
+    "install-client": "cd src/client && pwd && npm install",
     "install": "npm run install-server && npm run install-client",
     "clean-server": "cd src/server && pwd && rm -rf node_modules",
     "clean-client": "cd src/client && pwd && rm -rf node_modules",
