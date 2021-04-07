@@ -4,7 +4,7 @@
   "author": "redpelicans",
   "license": "MIT",
   "scripts": {
-    "start": "node src/server/dist/app.js",
+    "start": "node src/server/dist/app`.js",
     "install-server": "cd src/server && pwd && yarn install",
     "install-client": "cd src/client && pwd && yarn install",
     "install": "yarn install-server && yarn install-client",
