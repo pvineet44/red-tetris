@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1617711085884" clover="3.2.0">
-  <project timestamp="1617711085884" name="All files">
+<coverage generated="1617713071307" clover="3.2.0">
+  <project timestamp="1617713071307" name="All files">
     <metrics statements="36" coveredstatements="36" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4" elements="44" coveredelements="44" complexity="0" loc="36" ncloc="36" packages="1" files="2" classes="2"/>
-    <file name="Buttons.tsx" path="/home/mashar/Desktop/projects/red-tetris/src/client/src/components/Buttons.tsx">
+    <file name="Buttons.tsx" path="/Users/apco/Desktop/projects/red-tetris/src/client/src/components/Buttons.tsx">
       <metrics statements="22" coveredstatements="22" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
@@ -12,22 +12,22 @@
       <line num="6" count="1" type="stmt"/>
       <line num="7" count="1" type="stmt"/>
       <line num="8" count="1" type="cond" truecount="1" falsecount="0"/>
-      <line num="9" count="3" type="stmt"/>
-      <line num="10" count="3" type="cond" truecount="1" falsecount="0"/>
+      <line num="9" count="2" type="stmt"/>
+      <line num="10" count="2" type="cond" truecount="1" falsecount="0"/>
       <line num="11" count="1" type="stmt"/>
       <line num="12" count="1" type="stmt"/>
-      <line num="13" count="3" type="cond" truecount="1" falsecount="0"/>
+      <line num="13" count="2" type="cond" truecount="1" falsecount="0"/>
       <line num="14" count="1" type="stmt"/>
       <line num="15" count="1" type="stmt"/>
-      <line num="16" count="3" type="stmt"/>
-      <line num="17" count="3" type="stmt"/>
-      <line num="18" count="3" type="stmt"/>
-      <line num="19" count="3" type="stmt"/>
-      <line num="20" count="3" type="stmt"/>
-      <line num="21" count="3" type="stmt"/>
-      <line num="22" count="3" type="stmt"/>
+      <line num="16" count="2" type="stmt"/>
+      <line num="17" count="2" type="stmt"/>
+      <line num="18" count="2" type="stmt"/>
+      <line num="19" count="2" type="stmt"/>
+      <line num="20" count="2" type="stmt"/>
+      <line num="21" count="2" type="stmt"/>
+      <line num="22" count="2" type="stmt"/>
     </file>
-    <file name="Counter.tsx" path="/home/mashar/Desktop/projects/red-tetris/src/client/src/components/Counter.tsx">
+    <file name="Counter.tsx" path="/Users/apco/Desktop/projects/red-tetris/src/client/src/components/Counter.tsx">
       <metrics statements="14" coveredstatements="14" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <line num="1" count="1" type="stmt"/>
       <line num="2" count="1" type="stmt"/>
