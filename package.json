@@ -4,7 +4,9 @@
   "author": "redpelicans",
   "license": "MIT",
   "scripts": {
-    "start": "node src/server/dist/app.js",
+    "start": "npm run start-client && npm run start-server",
+    "start-server": " node src/server/dist/app.js",
+    "start-client": "cd src/client && npm run start",
     "install-server": "cd src/server && pwd && npm install",
     "install-client": "cd src/client && pwd && npm install",
     "install": "npm run install-server && npm run install-client",
