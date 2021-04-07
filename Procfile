@@ -1,2 +1,1 @@
-web: npm run start-client
-web: npm run start-server
+web: npm run start-client & npm run start-server & wait -n
