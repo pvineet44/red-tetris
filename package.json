@@ -4,7 +4,8 @@
   "author": "redpelicans",
   "license": "MIT",
   "scripts": {
-    "start": "npm run start-client && npm run start-server",
+    "start": "node src/server/dist/app.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix src/client && npm run build --prefix src/client",
     "start-server": " node src/server/dist/app.js",
     "start-client": "cd src/client && npm run start",
     "install-server": "cd src/server && pwd && npm install",
