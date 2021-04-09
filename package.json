@@ -62,5 +62,5 @@
     "react-test-renderer": "^17.0.2",
     "typescript": "^3.4.2"
   },
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:4000"
 }
