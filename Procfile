@@ -1,1 +1,1 @@
-web: node backend/dist/app.js
+web: npm run start
