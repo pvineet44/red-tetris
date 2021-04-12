@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "node src/server/dist/app.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix src/client && npm run build --prefix src/client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run react-build",
     "react-build": "react-scripts build",
     "eject": "react-scripts eject",
     "client": "react-scripts start",
