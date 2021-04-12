@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "node backend/dist/app.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run webpack-serve",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run client",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "client": "react-scripts start",
