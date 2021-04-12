@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "node backend/dist/app.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run webpack-serve",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "client": "react-scripts start",
@@ -28,7 +28,8 @@
     "test-client": "jest --config=jest.config.js --coverage",
     "test-server": "cd backend && jest --config=jest.config.js --coverage",
     "test": "npm run test-client && npm run test-server",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "webpack-serve": "webpack serve"
   },
   "eslintConfig": {
     "extends": [
