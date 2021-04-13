@@ -1,12 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Counter } from './components/Counter';
+import Tetris from './components/Tetris';
 
 function App() {
   return (
     <div className="App">
-      <Counter />
+      {/* <Counter /> */}
+      <Tetris />
     </div>
   );
 }

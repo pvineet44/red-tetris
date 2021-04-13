@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1617711085884" clover="3.2.0">
-  <project timestamp="1617711085884" name="All files">
+<coverage generated="1617904074239" clover="3.2.0">
+  <project timestamp="1617904074239" name="All files">
     <metrics statements="36" coveredstatements="36" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4" elements="44" coveredelements="44" complexity="0" loc="36" ncloc="36" packages="1" files="2" classes="2"/>
     <file name="Buttons.tsx" path="/home/mashar/Desktop/projects/red-tetris/src/client/src/components/Buttons.tsx">
       <metrics statements="22" coveredstatements="22" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
