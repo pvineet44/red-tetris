@@ -16,7 +16,7 @@ export const usePlayer = () => {
 
     const rotate = (matrix: any, dir: number) => {
         //Make rows into colums (Matrix transpose)
-        const rotatedTetro = matrix.map((_: any, index: string | number) => 
+        const rotatedTetro = matrix.map((_: any, index: number) => 
             matrix.map((col: any) => col[index]),
         )
 
@@ -26,7 +26,8 @@ export const usePlayer = () => {
     }
 
     const playerRotate = (stage: any, dir: number) => {
-        const clonedPlayer = JSON.parse(JSON.stringify(player))
+        if(player.pos.y + player.tetrimino.length <= 20)
+        {const clonedPlayer = JSON.parse(JSON.stringify(player))
         clonedPlayer.tetrimino = rotate(clonedPlayer.tetrimino, dir)
 
         const pos = clonedPlayer.pos.x;
@@ -41,7 +42,7 @@ export const usePlayer = () => {
             }
         }
 
-        setPlayer(clonedPlayer)
+        setPlayer(clonedPlayer)}
     }
 
     const updatePlayerPos: any = async ({x, y, collided}: {x: number, y: number, collided: boolean}) =>{
@@ -61,10 +62,36 @@ export const usePlayer = () => {
         // }))
     }
 
-    const resetPlayer = useCallback(() => {
+    const getFinalTetramino = (tetramino: any, height: number) => {
+        let _newTetramino = [];
+        for (let i = 0; i < tetramino.length; i++) {
+            if (i > tetramino.length - height - 1) {
+                _newTetramino.push(tetramino[i])
+            }
+        }
+        return _newTetramino;
+    }
+    const resetPlayer = useCallback((s) => {
+        // console.log(s);
+        let _newTetramino = randomTetromino().shape;
+        if (s) {
+            let _newPlayer = s;
+            let _remHeight = _newPlayer.pos.y;
+            console.log('pc: ', JSON.parse(JSON.stringify(_newPlayer)).collided)
+            if (_newPlayer.collided && _newTetramino.length > _remHeight) {
+                _newTetramino = getFinalTetramino(_newTetramino, _remHeight);
+                console.log('GAME OVER!')
+            }
+        }
+        /*
+            1. we check if its a game over condition
+                _newTetramino.length > _remHeight
+                construct a new _newTetramino with height = _remHeight
+                and set gameOver
+        */
         setPlayer({
-            pos: {x: STAGE_WIDTH / 2 - 2 , y: 0},
-            tetrimino: randomTetromino().shape,
+            pos: { x: STAGE_WIDTH / 2 - 2, y: 0 },
+            tetrimino: _newTetramino,
             collided: false,
         })
     }, [])

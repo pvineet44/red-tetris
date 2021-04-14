@@ -8,9 +8,9 @@ export const useStage = (player: any, resetPlayer: any) => {
     useEffect(() => {
         setRowsCleared(0);
 
-        const sweepRows = (newStage: any[]) => 
+        const sweepRows = (newStage: any[]) =>
             newStage.reduce((ack: any[][], row: any[]) => {
-                if(row.findIndex((cell: number[]) => cell[0] === 0) === -1){
+                if (row.findIndex((cell: number[]) => cell[0] === 0) === -1) {
                     setRowsCleared(prev => prev + 1);
                     console.log("RC", rowsCleared)
                     ack.unshift(new Array(newStage[0].length).fill([0, 'clear']));
@@ -38,9 +38,9 @@ export const useStage = (player: any, resetPlayer: any) => {
                 });
             });
             //Then check if collided
-            if(player.collided){
+            if (player.collided) {
                 console.log("called twice")
-                resetPlayer();
+                resetPlayer(JSON.parse(JSON.stringify(player)));
                 return sweepRows(newStage);
             }
             return newStage;

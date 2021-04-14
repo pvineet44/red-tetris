@@ -65,6 +65,16 @@ export const TETROMINOS: any = {
         ],
         color: '227, 78, 78',
     },
+
+    X: {
+        shape: [
+            ['X', 0, 'X'],
+            [0, 'X', 0],
+            ['X', 0, 'X']
+        ],
+        color: '255, 0, 0',
+    },
+
 }
 
 export const randomTetromino = () => {

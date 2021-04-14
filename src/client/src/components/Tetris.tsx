@@ -14,13 +14,15 @@ import { useInterval } from '../hooks/useInterval';
 import { useGameStatus } from '../hooks/useGameStatus';
 import OpponentView from './OpponentView';
 
-const Tetris: React.FC = () => {
-    const [dropTime, setDropTime] = useState<null | number>(null);
+type Socket = any;
+const Tetris: React.FC<Socket> = (socket) => {
+    const [dropTime, setDropTime] = useState<any>(null);
     const [gameOver, setGameOver] = useState(false)
 
     const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
     const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
     const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared)
+    const [opponentStage, setOpponentStage] = useState(null)
 
     const movePlayer = (dir: number) => {
         if (!checkCollision(player, stage, { x: dir, y: 0 })) {
@@ -31,7 +33,7 @@ const Tetris: React.FC = () => {
     const startGame = () => {
         //Reset everything
         setStage(createStage())
-        setDropTime(1000 / (+level + 1) + 200);
+        setDropTime(1000 / (level + 1) + 200);
         resetPlayer()
         setGameOver(false)
         setScore(0);
@@ -61,6 +63,7 @@ const Tetris: React.FC = () => {
     }
 
     const dropPlayer = () => {
+        emitData();
         setDropTime(null)
         drop()
     }
@@ -87,11 +90,20 @@ const Tetris: React.FC = () => {
     }
 
     useInterval(() => {
+        emitData();
         drop();
     }, dropTime)
 
-    // console.log("re-render");
+    // console.log("SOCKET", socket.socket);
 
+    
+    const emitData = () => {     
+        socket.socket.emit('stage', stage)
+        socket.socket.on('OpponentStage', async (oppStage: any) => {
+            setOpponentStage(oppStage);
+        })
+    }
+    
     return (
         <StyledTetrisWrapper tabIndex={0} role='button' onKeyDown={e => move(e)} onKeyUp={e => keyUp(e)}>
             <StyledTetris>
@@ -109,7 +121,10 @@ const Tetris: React.FC = () => {
                             </div>
                     }
                     <StartButton callback={() => startGame()} />
-                    <OpponentView stage={stage} />
+                    {opponentStage !== null ?
+                    <OpponentView stage={opponentStage} />
+                :
+                null}
                 </aside>
             </StyledTetris>
         </StyledTetrisWrapper>

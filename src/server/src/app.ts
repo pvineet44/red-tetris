@@ -5,6 +5,13 @@ import routes from "./routes"
 
 const app: Express = express()
 
+var http = require('http').createServer(app);
+var io = require('socket.io')(http, {
+    cors: {
+      origin: '*',
+    }
+  });
+
 const PORT: string | number = process.env.PORT || 4000
 
 app.use(cors())
@@ -17,18 +24,32 @@ if(process.env.NODE_ENV=="production"){
         })
     }
     
-        console.log(`Server running on http://localhost:${PORT}`)
+        // console.log(`Server running on http://localhost:${PORT}`)
 
-// const uri: string = 'mongodb+srv://admin:admin@cluster0.s5t7m.mongodb.net/red-tetris'
-// const options = { useNewUrlParser: true, useUnifiedTopology: true }
-// mongoose.set("useFindAndModify", false)
+const uri: string = 'mongodb+srv://admin:admin@cluster0.s5t7m.mongodb.net/red-tetris'
+const options = { useNewUrlParser: true, useUnifiedTopology: true }
 
-// mongoose
-// .connect(uri, options)
-// .then(() => 
-//     app.listen(PORT, () => 
-//         console.log(`Server running on http://localhost:${PORT}`)
-//     )
-// ).catch((error) => {
-//     throw error
-// })
+
+
+mongoose.set("useFindAndModify", false)
+
+mongoose
+.connect(uri, options)
+.then(() => 
+    http.listen(PORT, () => 
+    {
+        console.log(`Server running on http://localhost:${PORT}`, __dirname)
+        io.on('connection', (socket: any) => { /* socket object may be used to send specific messages to the new connected client */
+            console.log('new client connected aaa', socket.id);
+            // socket.emit('connection', null);
+            socket.on('stage', (stage: any) => {
+                // console.log("------------------------------------------------------------------------STAGE is ", stage)
+                socket.broadcast.emit('OpponentStage', stage);
+
+            })
+        })
+    }
+    )
+).catch((error) => {
+    throw error
+})
