@@ -12,7 +12,7 @@ const io = require('socket.io')(http, {
     }
   });
 
-const PORT: string | number = process.env.PORT || 4000
+const PORT: string | number = process.env.PORT || 5000
 
 app.use(cors())
 app.use(routes)

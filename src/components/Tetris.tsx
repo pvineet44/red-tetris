@@ -31,6 +31,7 @@ const Tetris: React.FC<Socket> = (socket) => {
     }
 
     const startGame = () => {
+        console.log('starting!')
         //Reset everything
         setStage(createStage())
         setDropTime(1000 / (level + 1) + 200);
@@ -96,14 +97,14 @@ const Tetris: React.FC<Socket> = (socket) => {
 
     // console.log("SOCKET", socket.socket);
 
-    
-    const emitData = () => {     
+
+    const emitData = () => {
         socket.socket.emit('stage', stage)
         socket.socket.on('OpponentStage', async (oppStage: any) => {
             setOpponentStage(oppStage);
         })
     }
-    
+
     return (
         <StyledTetrisWrapper tabIndex={0} role='button' onKeyDown={e => move(e)} onKeyUp={e => keyUp(e)}>
             <StyledTetris>
@@ -122,9 +123,9 @@ const Tetris: React.FC<Socket> = (socket) => {
                     }
                     <StartButton callback={() => startGame()} />
                     {opponentStage !== null ?
-                    <OpponentView stage={opponentStage} />
-                :
-                null}
+                        <OpponentView stage={opponentStage} />
+                        :
+                        null}
                 </aside>
             </StyledTetris>
         </StyledTetrisWrapper>
