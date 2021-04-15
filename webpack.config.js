@@ -11,7 +11,7 @@ module.exports = {
             {
                 test: /\.(j|t)sx?$/,
                 exclude: /node_modules/,
-                use: ['babel-loader'], //[ts-loader] -> ok for ts files but not tsx
+                use: ['babel-loader'],
                 include : [path.resolve(__dirname, 'src')]
             },
             {
