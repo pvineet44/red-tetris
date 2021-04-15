@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.testApi = void 0;
 const testApi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).json({
-        message: "Test API is not working!!"
+        message: "Test API is now!! working!!"
     });
 });
 exports.testApi = testApi;

@@ -14,7 +14,7 @@ const io = require('socket.io')(http, {
         origin: '*',
     }
 });
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 app.use(cors_1.default());
 app.use(routes_1.default);
 if (process.env.NODE_ENV == "production") {
