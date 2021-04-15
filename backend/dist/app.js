@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
-const routes_1 = __importDefault(require("./routes"));
 const app = express_1.default();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
@@ -16,7 +15,7 @@ const io = require('socket.io')(http, {
 });
 const PORT = process.env.PORT || 5000;
 app.use(cors_1.default());
-app.use(routes_1.default);
+// app.use(routes)
 if (process.env.NODE_ENV == "production") {
     app.use(express_1.default.static('../client/build'));
     const path = require('path');
