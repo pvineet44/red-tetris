@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "node backend/dist/app.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run react-build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run react-build && react-scripts start",
     "react-build": "react-scripts build",
     "eject": "react-scripts eject",
     "client": "react-scripts start",
