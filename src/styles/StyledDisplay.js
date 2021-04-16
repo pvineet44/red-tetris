@@ -1,10 +1,6 @@
 import styled from 'styled-components'
 
-interface DisplayStyle {
-    gameOver: boolean;
- }
-
- export const StyledDisplay = styled.div<DisplayStyle>`
+ export const StyledDisplay = styled.div`
     box-sizing: border-box;
     display: flex;
     align-items: centre;

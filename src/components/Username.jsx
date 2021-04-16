@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-type Socket = any;
-const Username: React.FC<Socket> = (socket) => {
+const Username = (socket) => {
 
     const [input, setInput] = useState('');
 
@@ -13,7 +12,7 @@ const Username: React.FC<Socket> = (socket) => {
                 name="inputfield"
                 onChange={(e) => setInput(e.target.value)}
             />
-            <button type="button" onClick={() => console.log('ssss2: ', input)} >Hello</button>
+            <button type="button" onClick={() => console.log('sss s2: ', input)} >Hello</button>
         </div>
     )
 }

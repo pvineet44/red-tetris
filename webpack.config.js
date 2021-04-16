@@ -2,14 +2,14 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.tsx',
+    entry: './src/index.jsx',
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: ['.js', '.jsx'],
     },
     module: {
         rules: [
             {
-                test: /\.(j|t)sx?$/,
+                test: /\.(js|jsx)?$/,
                 exclude: /node_modules/,
                 use: ['babel-loader'],
                 include : [path.resolve(__dirname, 'src')]

@@ -1,12 +1,7 @@
 import React from 'react'
 import { StyledDisplay } from '../styles/StyledDisplay'
 
-type Prop = {
-    text: string,
-    gameOver: boolean
-}
-
-const Display: React.FC<Prop> = ({gameOver, text}) => {
+const Display = ({gameOver, text}) => {
     return(
         <StyledDisplay gameOver = {gameOver}>{text}</StyledDisplay>
     )

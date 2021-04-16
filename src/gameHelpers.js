@@ -1,5 +1,3 @@
-import { moveMessagePortToContext } from "node:worker_threads";
-
 export const STAGE_WIDTH = 12;
 export const STAGE_HEIGHT = 20;
 
@@ -8,7 +6,7 @@ export const createStage = () =>
         new Array(STAGE_WIDTH).fill([0, 'clear'])
     )
 
-export const checkCollision = (player: { tetrimino: string | any[]; pos: { y: number; x: number; }; }, stage: { [x: string]: { [x: string]: string[]; }; }, { x: moveX, y: moveY }: any) => {
+export const checkCollision = (player, stage, { x: moveX, y: moveY }) => {
     for (let y = 0; y < player.tetrimino.length; y += 1)
         for (let x = 0; x < player.tetrimino[y].length; x += 1) {
             //1.Check whether we are in a tetrimino cell

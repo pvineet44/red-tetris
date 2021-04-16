@@ -7,8 +7,8 @@ import { Switch, Route } from 'react-router-dom'
 
 // const SERVER = "http://localhost:" + process.env.REACT_APP_PORT;
 
-function App(): any {
-  const [socket, setSocket] = useState<any>(0);
+function App() {
+  const [socket, setSocket] = useState(0);
 
   useEffect(() => {
     setSocket(socketClient("http://localhost:5000"));

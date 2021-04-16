@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { createStage } from '../gameHelpers';
 
-export const useStage = (player: any, resetPlayer: any) => {
-    const [stage, setStage] = useState<any>(createStage());
+export const useStage = (player, resetPlayer) => {
+    const [stage, setStage] = useState(createStage());
     const [rowsCleared, setRowsCleared] = useState(0);
 
     useEffect(() => {
         setRowsCleared(0);
 
-        const sweepRows = (newStage: any[]) =>
-            newStage.reduce((ack: any[][], row: any[]) => {
-                if (row.findIndex((cell: number[]) => cell[0] === 0) === -1) {
+        const sweepRows = (newStage) =>
+            newStage.reduce((ack, row) => {
+                if (row.findIndex((cell) => cell[0] === 0) === -1) {
                     setRowsCleared(prev => prev + 1);
                     console.log("RC", rowsCleared)
                     ack.unshift(new Array(newStage[0].length).fill([0, 'clear']));
@@ -19,16 +19,16 @@ export const useStage = (player: any, resetPlayer: any) => {
                 ack.push(row);
                 return ack;
             }, [])
-        const updateStage = (prevStage: any) => {
+        const updateStage = (prevStage) => {
             //Flush the stage
-            const newStage = prevStage.map((row: any) =>
-                row.map((cell: any) => (
+            const newStage = prevStage.map((row) =>
+                row.map((cell) => (
                     cell[1] === 'clear' ? [0, 'clear'] : cell
                 )));
 
             //Then draw tetromino
-            player.tetrimino.forEach((row: any, y: any) => {
-                row.forEach((value: any, x: any) => {
+            player.tetrimino.forEach((row, y) => {
+                row.forEach((value, x) => {
                     if (value !== 0) {
                         newStage[y + player.pos.y][x + player.pos.x] = [
                             value,
@@ -46,7 +46,7 @@ export const useStage = (player: any, resetPlayer: any) => {
             return newStage;
         }
 
-        setStage((prev: any) => updateStage(prev))
+        setStage((prev) => updateStage(prev))
     }, [player, resetPlayer])
     return [stage, setStage, rowsCleared];
 }

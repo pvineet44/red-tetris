@@ -14,18 +14,18 @@ export const usePlayer = () => {
         }
     );
 
-    const rotate = (matrix: any, dir: number) => {
+    const rotate = (matrix, dir) => {
         //Make rows into colums (Matrix transpose)
-        const rotatedTetro = matrix.map((_: any, index: number) => 
-            matrix.map((col: any) => col[index]),
+        const rotatedTetro = matrix.map((_, index) => 
+            matrix.map((col) => col[index]),
         )
 
         //Reverse each row to get rotated matrix
-        if(dir > 0) return rotatedTetro.map((row: any[]) => row.reverse());
+        if(dir > 0) return rotatedTetro.map((row) => row.reverse());
         return rotatedTetro.reverse()
     }
 
-    const playerRotate = (stage: any, dir: number) => {
+    const playerRotate = (stage, dir) => {
         if(player.pos.y + player.tetrimino.length <= 20)
         {const clonedPlayer = JSON.parse(JSON.stringify(player))
         clonedPlayer.tetrimino = rotate(clonedPlayer.tetrimino, dir)
@@ -45,7 +45,7 @@ export const usePlayer = () => {
         setPlayer(clonedPlayer)}
     }
 
-    const updatePlayerPos: any = async ({x, y, collided}: {x: number, y: number, collided: boolean}) =>{
+    const updatePlayerPos = async ({x, y, collided}) =>{
         const newPlayer = {
             pos: {
                 x: player.pos.x + x,
@@ -62,7 +62,7 @@ export const usePlayer = () => {
         // }))
     }
 
-    const getFinalTetramino = (tetramino: any, height: number) => {
+    const getFinalTetramino = (tetramino, height) => {
         const _newTetramino = [];
         for (let i = 0; i < tetramino.length; i++) {
             if (i > tetramino.length - height - 1) {

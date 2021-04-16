@@ -1,10 +1,7 @@
 import React from 'react'
 import { StyledStartButton } from '../styles/StyledStartButton';
 
-type Callback = {
-    callback: any
-}
-const StartButton: React.FC<Callback> = ({callback}) => {
+const StartButton = ({callback}) => {
     return(
         <StyledStartButton onClick = {callback}>Start Game</StyledStartButton>
     )
