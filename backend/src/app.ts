@@ -16,13 +16,13 @@ const PORT: string | number = process.env.PORT || 5000
 
 app.use(cors())
 // app.use(routes)
-if(process.env.NODE_ENV=="production"){
+// if(process.env.NODE_ENV=="production"){
         app.use(express.static('../../public/'))
         const path = require('path')
         app.get("*",(req,res)=>{
-            res.sendFile(path.resolve(__dirname,'../../public','index.html'))
+            res.sendFile(path.resolve(__dirname,'../../public','index1.html'))
         })
-    }
+    // }
     
         // console.log(`Server running on http://localhost:${PORT}`)
 

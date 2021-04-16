@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Tetris from './components/Tetris';
 import socketClient from "socket.io-client";
+import Username from './components/Username';
+import { Switch, Route } from 'react-router-dom'
+
 // const SERVER = "http://localhost:" + process.env.REACT_APP_PORT;
 
 function App(): any {
@@ -15,10 +18,19 @@ function App(): any {
 
   if (!socket) return null
   return (
-    <div className="App">
-      {/* <Counter /> */}
-      <Tetris socket={socket} />
-    </div>
+    // <div className="App">
+    //   {/* <Counter /> */}
+    //   {/* <Tetris socket={socket} /> */}
+    //   <Username socket={socket} />
+    // </div>
+    <Switch>
+      <Route exact path='/game'>
+        <Tetris socket={socket} />
+      </Route>
+      <Route path='/'>
+        <Username socket={socket} />
+      </Route>
+    </Switch>
   );
 }
 
