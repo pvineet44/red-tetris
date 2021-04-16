@@ -12,7 +12,7 @@ const Username = (socket) => {
                 name="inputfield"
                 onChange={(e) => setInput(e.target.value)}
             />
-            <button type="button" onClick={() => console.log('sss s2: ', input)} >Hello</button>
+            <button type="button" onClick={() => console.log('nas: ', input)} >Hello</button>
         </div>
     )
 }
