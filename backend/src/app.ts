@@ -20,7 +20,7 @@ app.use(cors())
         app.use(express.static('../../public/'))
         const path = require('path')
         app.get("*",(req,res)=>{
-            res.sendFile(path.resolve(__dirname,'../../public','index1.html'))
+            res.sendFile(path.resolve(__dirname,'../../public','index.html'))
         })
     // }
     

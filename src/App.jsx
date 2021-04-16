@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import Tetris from './components/Tetris';
+import React, { useEffect, useState } from "react";
+import "./App.css";
 import socketClient from "socket.io-client";
-import Username from './components/Username';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route } from "react-router-dom";
+import Tetris from "./components/Tetris";
+import Welcome from "./components/Welcome";
 
 // const SERVER = "http://localhost:" + process.env.REACT_APP_PORT;
 
@@ -12,23 +12,18 @@ function App() {
 
   useEffect(() => {
     setSocket(socketClient("http://localhost:5000"));
-    console.log("SOCKET CONNECTED", socket)
-    console.log("Port ", process.env.REACT_APP_PORT)
-  }, [])
+    console.log("SOCKET CONNECTED", socket);
+    console.log("Port ", process.env.REACT_APP_PORT);
+  }, []);
 
-  if (!socket) return null
+  if (!socket) return null;
   return (
-    // <div className="App">
-    //   {/* <Counter /> */}
-    //   {/* <Tetris socket={socket} /> */}
-    //   <Username socket={socket} />
-    // </div>
     <Switch>
-      <Route exact path='/game'>
+      <Route exact path="/game">
         <Tetris socket={socket} />
       </Route>
-      <Route path='/'>
-        <Username socket={socket} />
+      <Route path="/">
+        <Welcome socket={socket} />
       </Route>
     </Switch>
   );

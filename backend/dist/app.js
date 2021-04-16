@@ -20,7 +20,7 @@ app.use(cors_1.default());
 app.use(express_1.default.static('../../public/'));
 const path = require('path');
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../../public', 'index1.html'));
+    res.sendFile(path.resolve(__dirname, '../../public', 'index.html'));
 });
 // }
 // console.log(`Server running on http://localhost:${PORT}`)
