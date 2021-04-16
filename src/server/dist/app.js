@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
+const tetrominos_1 = require("./tetrominos");
 const app = express_1.default();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http, {
@@ -33,7 +34,8 @@ mongoose_1.default
     .then(() => http.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`, __dirname);
     io.on('connection', (socket) => {
-        console.log('new client connected aaa', socket.id);
+        console.log('new client connected aaa', tetrominos_1.randomTetrominoArray());
+        // socket.emit("tetroarray", randomTetrominoArray())
         // socket.emit('connection', null);
         socket.on('stage', (stage) => {
             // console.log("------------------------------------------------------------------------STAGE is ", stage)
