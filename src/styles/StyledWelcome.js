@@ -12,13 +12,13 @@ const pink = '#fcdcdc'
 export const StyledWelcome = styled.div`
   width: 100vw;
   height: 100vh;
-  background: url(${bgImage}) #000;
+  background-color: #9AACBF;
   background-size: cover;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center
+  align-items: center;
 `;
 
 export const WelcomeFormContainer = styled.div`
@@ -34,6 +34,7 @@ export const WelcomeFormContainer = styled.div`
   border-radius: 10px;
   color: rgb(245,245,245, 0.8);
   font-family: Pixel, Arial, Helvetica, sans-serif;
+  box-shadow: 10px 10px 10px rgb(0,0,0, 0.1);
 /* box-shadow: 5px 10px #888888; */
   /* box-shadow: 10px 10px 10px rgb(136,136,136, 0.2); */
 
@@ -60,7 +61,8 @@ export const WelcomeForm = styled.div`
   height: 40vh;
   border-radius: 10px;
   h1 {
-    color: ${darkPink}
+    color: ${darkPink};
+    font-size: 3vw;
   }
   label {
     position: relative;
