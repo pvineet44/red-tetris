@@ -42,6 +42,10 @@ mongoose
         console.log(`Server running on http://localhost:${PORT}`, __dirname)
         io.on('connection', (socket: any) => { /* socket object may be used to send specific messages to the new connected client */
             console.log('new client connected aaa', randomTetrominoArray());
+            socket.on('getTetros', () => {
+                console.log("GET TETROS CALLED")
+                socket.emit('tetroArray', randomTetrominoArray())
+            });
 
             // socket.emit("tetroarray", randomTetrominoArray())
             // socket.emit('connection', null);

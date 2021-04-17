@@ -14,37 +14,47 @@ import { useInterval } from '../hooks/useInterval';
 import { useGameStatus } from '../hooks/useGameStatus';
 import OpponentView from './OpponentView';
 
-type Socket = any;
-const Tetris: React.FC<Socket> = (socket) => {
-    const [dropTime, setDropTime] = useState<any>(null);
+const Tetris = (socket) => {
+    const [dropTime, setDropTime] = useState(null);
     const [gameOver, setGameOver] = useState(false)
 
-    const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
-    const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
+    const [player, updatePlayerPos, resetPlayer, playerRotate, tetroArray, resetTetroArray, tetroNumber, setTetronumber] = usePlayer();
+    const [stage, setStage, rowsCleared] = useStage(player, resetPlayer, tetroArray, resetTetroArray);
     const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared)
     const [opponentStage, setOpponentStage] = useState(null)
 
-    const movePlayer = (dir: number) => {
+    const movePlayer = (dir) => {
         if (!checkCollision(player, stage, { x: dir, y: 0 })) {
             updatePlayerPos({ x: dir, y: 0 })
         }
     }
 
-    const startGame = () => {
+    const startGame = async () => {
+        /*
+        On start click, get array from backend and store in state variable arr, set counter 0 in player hook
+        In reset function, pass tetro as one from array
+        */
         //Reset everything
-        setStage(createStage())
-        setDropTime(1000 / (level + 1) + 200);
-        resetPlayer()
-        setGameOver(false)
-        setScore(0);
-        setRows(0);
-        setLevel(0);
+        await socket.socket.emit('getTetros')
+        await socket.socket.on('tetroArray', async (tetroArrayServ) => {
+            // resetTetroArray(tetroarray);
+            await localStorage.setItem('TetroArr', JSON.stringify(tetroArrayServ))
+            await localStorage.setItem('TetroArrPos', 0)
+            await resetPlayer(null, tetroArrayServ)
+            await setStage(createStage())
+            await setDropTime(1000 / (level + 1) + 200);
+            await setGameOver(false)
+            await setScore(0);
+            await setRows(0);
+            await setLevel(0);
+            // console.log("TETRO ARR", tetroArray);
+        })
     }
 
     const drop = () => {
         //increase level when player has cleared 10 rows
         if (rows > (level + 1) * 20) {
-            setLevel((prev: number) => prev + 1);
+            setLevel((prev) => prev + 1);
 
             //Also increase speed
             setDropTime(1000 / (level + 1) + 200);
@@ -68,7 +78,7 @@ const Tetris: React.FC<Socket> = (socket) => {
         drop()
     }
 
-    const keyUp = (e: any) => {
+    const keyUp = (e) => {
         if (!gameOver) {
             if (e.keyCode === 40) {
                 setDropTime(1000 / (level + 1) + 200);
@@ -76,7 +86,7 @@ const Tetris: React.FC<Socket> = (socket) => {
         }
     }
 
-    const move = (e: any) => {
+    const move = (e) => {
         if (!gameOver) {
             if (e.keyCode === 37)
                 movePlayer(-1);
@@ -99,7 +109,7 @@ const Tetris: React.FC<Socket> = (socket) => {
     
     const emitData = () => {     
         socket.socket.emit('stage', stage)
-        socket.socket.on('OpponentStage', async (oppStage: any) => {
+        socket.socket.on('OpponentStage', async (oppStage) => {
             setOpponentStage(oppStage);
         })
     }

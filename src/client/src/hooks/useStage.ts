@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createStage } from '../gameHelpers';
 
-export const useStage = (player: any, resetPlayer: any) => {
+export const useStage = (player: any, resetPlayer: any, tetroArray: any, resetTetroArray: any) => {
     const [stage, setStage] = useState<any>(createStage());
     const [rowsCleared, setRowsCleared] = useState(0);
 
@@ -40,13 +40,13 @@ export const useStage = (player: any, resetPlayer: any) => {
             //Then check if collided
             if (player.collided) {
                 console.log("called twice")
-                resetPlayer(JSON.parse(JSON.stringify(player)));
+                resetPlayer(JSON.parse(JSON.stringify(player)), null);
                 return sweepRows(newStage);
             }
             return newStage;
         }
 
         setStage((prev: any) => updateStage(prev))
-    }, [player, resetPlayer])
+    }, [player, resetPlayer, tetroArray, resetTetroArray])
     return [stage, setStage, rowsCleared];
 }

@@ -35,6 +35,10 @@ mongoose_1.default
     console.log(`Server running on http://localhost:${PORT}`, __dirname);
     io.on('connection', (socket) => {
         console.log('new client connected aaa', tetrominos_1.randomTetrominoArray());
+        socket.on('getTetros', () => {
+            console.log("GET TETROS CALLED");
+            socket.emit('tetroArray', tetrominos_1.randomTetrominoArray());
+        });
         // socket.emit("tetroarray", randomTetrominoArray())
         // socket.emit('connection', null);
         socket.on('stage', (stage) => {

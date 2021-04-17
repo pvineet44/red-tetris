@@ -83,10 +83,10 @@ const getRandomtetro = () => {
 }
 
 export const randomTetrominoArray = () => {
-    const tetroarray = new Array(10)
+    const tetroarray = new Array(1000)
     // const randTetromino = 
     //     tetrominos[Math.floor(Math.random() * tetrominos.length)];
-    for (var i = 0; i < 10; i++)
+    for (var i = 0; i < 1000; i++)
     {
         tetroarray[i] = TETROMINOS[getRandomtetro()]
     }
