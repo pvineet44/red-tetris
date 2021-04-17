@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import useSound from 'use-sound';
 import sfx from '../assets/sound/Tetris.mp3';
 
+import ToggleSound from './ToggleSound';
 import {
   StyledWelcome,
   WelcomeFormContainer,
@@ -9,25 +9,22 @@ import {
   WelcomeForm,
 } from '../styles/StyledWelcome';
 import tetrisLogo from '../assets/images/Tetris.png';
+import ReactHowler from 'react-howler';
 
-const Welcome = (socket) => {
+const Welcome = (props) => {
   const [input, setInput] = useState('');
-  const [play] = useSound(sfx);
-
+  const { toggleSound, socket, soundOn } = props;
   const handleSubmit = () => {
     console.log('input: ', input, socket);
   };
 
-  useEffect(() => {
-    // play();
-  });
-
   return (
     <StyledWelcome>
+      <ToggleSound soundOn={soundOn} toggleSound={toggleSound} />
       <WelcomeFormContainer>
-        {/* <Logo></Logo> */}
         <WelcomeForm>
           <h1> Red Tetris</h1>
+
           <label>
             <input
               id="fname"
@@ -38,7 +35,7 @@ const Welcome = (socket) => {
             />
             <span>name:</span>
           </label>
-          <button class="learn-more" type="submit" onClick={handleSubmit}>
+          <button className="learn-more" type="submit" onClick={handleSubmit}>
             Play!
           </button>
         </WelcomeForm>

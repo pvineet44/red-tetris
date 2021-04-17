@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import bgImage from '../assets/images/bg.png';
 
 const pinkBorder =  '#B94C4A';
 const pinkShadow = 'rgb(255,255,255,0)';
@@ -14,7 +13,6 @@ export const StyledWelcome = styled.div`
   height: 100vh;
   background-color: #9AACBF;
   background-size: cover;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +21,7 @@ export const StyledWelcome = styled.div`
 
 export const WelcomeFormContainer = styled.div`
   height: 60vh;
-  width: 40vw;
+  width: 30vw;
   background-color: rgb(56,56,56, 0.5);
   object-fit: cover;
   overflow: hidden;
@@ -58,7 +56,7 @@ export const WelcomeForm = styled.div`
   align-items: center;
   background-color: rgb(69,69,69, 0.7);
   width: 25vw;
-  height: 40vh;
+  height: 45vh;
   border-radius: 10px;
   h1 {
     color: ${darkPink};
@@ -177,3 +175,4 @@ export const WelcomeForm = styled.div`
   }
 }
 `;
+
