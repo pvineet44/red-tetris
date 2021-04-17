@@ -1,38 +1,22 @@
 module.exports = {
+ 
+    moduleNameMapper: {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+  },
   clearMocks: true,
 
-  // Indicates whether the coverage information should be collected while executing the test
-  // collectCoverage: false,
-
-  // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: undefined,
-
-  // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
 
-  // An array of regexp pattern strings used to skip coverage collection
-  // coveragePathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
-
-  // Indicates which provider should be used to instrument code for coverage
   coverageProvider: "v8",
-
-  // A list of reporter names that Jest uses when writing coverage reports
-  // coverageReporters: [
-  //   "json",
-  //   "text",
-  //   "lcov",
-  //   "clover"
-  // ],
 
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
     global: {
-        branches: 90,
-        functions: 90,
-        lines: 90,
-        statements: 90,
+        branches: 50,
+        functions: 70,
+        lines: 70,
+        statements: 70,
     },
   },
 
@@ -42,9 +26,9 @@ module.exports = {
 
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
-  transform: {
-    "^.+\\.tsx?$": "ts-jest"
-  },
+  // transform: {
+  //   "^.+\\.tsx?$": "ts-jest"
+  // },
 
   // Runs special logic, such as cleaning up components
   // when using React Testing Library and adds special
@@ -57,8 +41,8 @@ module.exports = {
   // Test spec file resolution pattern
   // Matches parent folder `__tests__` and filename
   // should contain `test` or `spec`.
-  testRegex: "(/test/.*|(\\.|/)(test|spec))\\.tsx?$",
+  testRegex: "(/test/.*|(\\.|/)(test|spec))\\.js?$",
 
   // Module file extensions for importing
-  moduleFileExtensions: ["ts", "tsx", "js"]
+  moduleFileExtensions: ["jsx", "js"]
 };

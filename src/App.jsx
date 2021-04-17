@@ -12,6 +12,7 @@ import ReactHowler from 'react-howler';
 function App() {
   const [socket, setSocket] = useState(0);
   const [soundOn, setSoundOn] = useState(true);
+
   const toggleSound = () => {
     console.log('change: ', soundOn);
     setSoundOn(!soundOn);
