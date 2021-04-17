@@ -19,13 +19,21 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
+                test: /\.(mp3|png|jpe?g|gif)$/i,
                 use: [
                   {
                     loader: 'file-loader',
                   },
                 ],
-              },        
+              },
+              {
+                test: /\.(woff|woff2)$/,
+                loader: 'url-loader',
+                // options: {
+                //   limit: 4096,
+                //   name: './src/assets/fonts/[name].[ext]?[hash]', // was '/fonts/[name].[ext]?[hash]',
+                // },
+              },              
         ]
     },
     output: {

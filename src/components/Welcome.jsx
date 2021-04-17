@@ -1,28 +1,48 @@
-import React, { useState } from 'react';
-import { StyledWelcome, WelcomeLogo } from '../styles/StyledWelcome';
+import React, { useEffect, useState } from 'react';
+import useSound from 'use-sound';
+import sfx from '../assets/sound/Tetris.mp3';
+
+import {
+  StyledWelcome,
+  WelcomeFormContainer,
+  Logo,
+  WelcomeForm,
+} from '../styles/StyledWelcome';
 import tetrisLogo from '../assets/images/Tetris.png';
 
 const Welcome = (socket) => {
   const [input, setInput] = useState('');
+  const [play] = useSound(sfx);
 
   const handleSubmit = () => {
     console.log('input: ', input, socket);
   };
 
+  useEffect(() => {
+    // play();
+  });
+
   return (
     <StyledWelcome>
-      <WelcomeLogo>
-        <img src={tetrisLogo}></img>
-      </WelcomeLogo>
-      <h2>Enter your name: </h2>
-      <input
-        type="text"
-        name="inputfield"
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button type="submit" onClick={handleSubmit}>
-        Hello
-      </button>
+      <WelcomeFormContainer>
+        {/* <Logo></Logo> */}
+        <WelcomeForm>
+          <h1> Red Tetris</h1>
+          <label>
+            <input
+              id="fname"
+              type="text"
+              name="inputfield"
+              placeholder="Enter your name here:"
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <span>name:</span>
+          </label>
+          <button class="learn-more" type="submit" onClick={handleSubmit}>
+            Play!
+          </button>
+        </WelcomeForm>
+      </WelcomeFormContainer>
     </StyledWelcome>
   );
 };
