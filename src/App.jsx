@@ -14,14 +14,11 @@ function App() {
   const [soundOn, setSoundOn] = useState(true);
 
   const toggleSound = () => {
-    console.log('change: ', soundOn);
     setSoundOn(!soundOn);
   };
 
   useEffect(() => {
     setSocket(socketClient('http://localhost:5000'));
-    console.log('SOCKET CONNECTED', socket);
-    console.log('Port ', process.env.REACT_APP_PORT);
   }, []);
 
   if (!socket) return null;

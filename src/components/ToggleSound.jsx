@@ -6,6 +6,7 @@ const ToggleSound = (props) => {
   return (
     <StyledToggleSound>
       <input
+        data-testid="toggle-sound-checkbox"
         type="checkbox"
         className="toggle"
         checked={soundOn}
