@@ -8,8 +8,9 @@ export const createStage = () =>
 
 export const checkCollision = (player, stage, { x: moveX, y: moveY }) => {
     for (let y = 0; y < player.tetrimino.length; y += 1)
-        for (let x = 0; x < player.tetrimino[y].length; x += 1) {
-            //1.Check whether we are in a tetrimino cell
+    for (let x = 0; x < player.tetrimino[y].length; x += 1) {
+        //1.Check whether we are in a tetrimino cell
+        console.log('play position: ', player.tetrimino, player.pos, player.tetrimino[y][x]);
             if (player.tetrimino[y][x] !== 0) {
                 if (
                     //2. Check that our move is in the game areas height (y)
