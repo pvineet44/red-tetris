@@ -38,6 +38,7 @@ export const useStage = (player, resetPlayer) => {
                 });
             });
             //Then check if collided
+            console.log('player: ', player);
             if (player.collided) {
                 console.log("called twice")
                 resetPlayer(JSON.parse(JSON.stringify(player)));

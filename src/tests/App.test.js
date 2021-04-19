@@ -10,6 +10,8 @@ import { render, fireEvent } from "@testing-library/react";
 import Tetris from '../components/Tetris';
 import OpponentView from '../components/OpponentView';
 import ToggleSound from '../components/ToggleSound';
+import socketClient from 'socket.io-client';
+
 
 it("renders without crashing", () => {
   const app = shallow(<App />);
@@ -31,17 +33,27 @@ it("renders without crashing", () => {
   fireEvent.click( getByText("Play!"))
 });
 
-it("renders without crashing", () => {
+
+const mockTetris = () => {
+  const socket = new socketClient('http://localhost:5000')
+    // console.log(socket);
     const { getByText } = render(<Tetris />);
 
-    const tetris = shallow(<Tetris />);
+    const tetris = shallow(<Tetris socket={socket} />);
 
-    tetris.simulate("keyPress", {keyDown: 37})
-    tetris.simulate("keyPress", {keyDown: 38})
-    tetris.simulate("keyPress", {keyDown: 39})
-    tetris.simulate("keyPress", {keyDown: 40})
     fireEvent.click( getByText("Start Game"))
-    fireEvent.keyDown(document.activeElement || document.body);
+    tetris.simulate("keydown", {keyCode: 37})
+    tetris.simulate("keydown", {keyCode: 38})
+    tetris.simulate("keydown", {keyCode: 39})
+    // tetris.simulate("keydown", {keyCode: 40})
+    // tetris.simulate("keydown", {keyCode: 40})
+    let i = 0;
+    while ( i++ < 2000)
+    tetris.simulate("keydown", {keyCode: 40})
+}
+
+it("renders without crashing", async () => {
+    mockTetris();
   });
 
   it("renders without crashing", () => {
