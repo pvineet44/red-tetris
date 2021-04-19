@@ -31,16 +31,24 @@ const Tetris = (socket) => {
     }
   };
 
-  const startGame = () => {
+  const startGame = async () => {
     console.log('starting!');
     //Reset everything
-    setStage(createStage());
-    setDropTime(1000 / (level + 1) + 200);
-    resetPlayer();
-    setGameOver(false);
-    setScore(0);
-    setRows(0);
-    setLevel(0);
+    await socket.socket.emit('getTetros')
+    await socket.socket.on('tetroArray', async (tetroArrayServ) => {
+      // resetTetroArray(tetroarray);
+      console.log("TETROOOOOOOOOOO", tetroArrayServ)
+      await localStorage.setItem('TetroArr', JSON.stringify(tetroArrayServ))
+      await localStorage.setItem('TetroArrPos', 0)
+      await resetPlayer(null, tetroArrayServ);
+      await setStage(createStage());
+      await setDropTime(1000 / (level + 1) + 200);
+      await setGameOver(false)
+      await setScore(0);
+      await setRows(0);
+      await setLevel(0);
+      // console.log("TETRO ARR", tetroArray);
+    })
   };
 
   const drop = () => {

@@ -2,6 +2,7 @@ import express, { Express } from "express"
 import mongoose from "mongoose"
 import cors from "cors"
 import routes from "./routes"
+import { randomTetrominoArray } from "./tetrominos"
 
 const app: Express = express()
 
@@ -36,12 +37,15 @@ mongoose.set("useFindAndModify", false)
 mongoose
 .connect(uri, options)
 .then(() => 
-    http.listen(PORT, () => 
+    http.listen(PORT, () =>
     {
         console.log(`Server running on http://localhost:${PORT}`, __dirname)
         io.on('connection', (socket: any) => { /* socket object may be used to send specific messages to the new connected client */
-            console.log('new client connected aaa', socket.id);
-            // socket.emit('connection', null);
+            console.log('new client connected aaa');
+            socket.on('getTetros', () => {
+                console.log("GET TETROS CALLED")
+                socket.emit('tetroArray', randomTetrominoArray())
+            });
             socket.on('stage', (stage: any) => {
                 // console.log("------------------------------------------------------------------------STAGE is ", stage)
                 socket.broadcast.emit('OpponentStage', stage);

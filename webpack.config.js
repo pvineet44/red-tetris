@@ -4,14 +4,16 @@ module.exports = {
     mode: 'development',
     entry: './src/index.jsx',
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     module: {
         rules: [
             {
                 test: /\.(js|jsx)?$/,
                 exclude: /node_modules/,
-                use: ['babel-loader'],
+                use: {
+                  loader: 'babel-loader',
+                },
                 include : [path.resolve(__dirname, 'src')]
             },
             {

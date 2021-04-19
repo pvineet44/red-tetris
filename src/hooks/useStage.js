@@ -40,7 +40,7 @@ export const useStage = (player, resetPlayer) => {
             //Then check if collided
             if (player.collided) {
                 console.log("called twice")
-                resetPlayer(JSON.parse(JSON.stringify(player)));
+                resetPlayer(JSON.parse(JSON.stringify(player)), null);
                 return sweepRows(newStage);
             }
             return newStage;

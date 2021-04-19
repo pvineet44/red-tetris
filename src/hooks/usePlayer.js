@@ -16,36 +16,37 @@ export const usePlayer = () => {
 
     const rotate = (matrix, dir) => {
         //Make rows into colums (Matrix transpose)
-        const rotatedTetro = matrix.map((_, index) => 
+        const rotatedTetro = matrix.map((_, index) =>
             matrix.map((col) => col[index]),
         )
 
         //Reverse each row to get rotated matrix
-        if(dir > 0) return rotatedTetro.map((row) => row.reverse());
+        if (dir > 0) return rotatedTetro.map((row) => row.reverse());
         return rotatedTetro.reverse()
     }
 
     const playerRotate = (stage, dir) => {
-        if(player.pos.y + player.tetrimino.length <= 20)
-        {const clonedPlayer = JSON.parse(JSON.stringify(player))
-        clonedPlayer.tetrimino = rotate(clonedPlayer.tetrimino, dir)
+        if (player.pos.y + player.tetrimino.length <= 20) {
+            const clonedPlayer = JSON.parse(JSON.stringify(player))
+            clonedPlayer.tetrimino = rotate(clonedPlayer.tetrimino, dir)
 
-        const pos = clonedPlayer.pos.x;
-        let offset = 1;
+            const pos = clonedPlayer.pos.x;
+            let offset = 1;
 
-        while(checkCollision(clonedPlayer, stage, {x: 0, y: 0})){
-            clonedPlayer.pos.x += offset;
-            offset = -(offset + (offset > 0 ? 1: -1))
-            if(offset > clonedPlayer.tetrimino[0].length){
-                rotate(clonedPlayer.tetrimino, -dir)
-                clonedPlayer.pos.x = pos;
+            while (checkCollision(clonedPlayer, stage, { x: 0, y: 0 })) {
+                clonedPlayer.pos.x += offset;
+                offset = -(offset + (offset > 0 ? 1 : -1))
+                if (offset > clonedPlayer.tetrimino[0].length) {
+                    rotate(clonedPlayer.tetrimino, -dir)
+                    clonedPlayer.pos.x = pos;
+                }
             }
-        }
 
-        setPlayer(clonedPlayer)}
+            setPlayer(clonedPlayer)
+        }
     }
 
-    const updatePlayerPos = async ({x, y, collided}) =>{
+    const updatePlayerPos = async ({ x, y, collided }) => {
         const newPlayer = {
             pos: {
                 x: player.pos.x + x,
@@ -71,9 +72,16 @@ export const usePlayer = () => {
         }
         return _newTetramino;
     }
-    const resetPlayer = useCallback((s) => {
+    const resetPlayer = useCallback(async (s, tetroArraySrv) => {
         // console.log(s);
-        let _newTetramino = randomTetromino().shape;
+        // console.log(s);
+        let pos = parseInt(localStorage.getItem('TetroArrPos'));
+        console.log("IN RESET", JSON.parse(localStorage.getItem('TetroArr')), pos)
+        let _newTetramino = tetroArraySrv !== null ? tetroArraySrv[0].shape
+            : JSON.parse(localStorage.getItem('TetroArr'))[pos].shape
+
+        localStorage.setItem('TetroArrPos', pos + 1);
+        // console.log("pos", localStorage.getItem('TetroArrPos'))
         if (s) {
             const _newPlayer = s;
             const _remHeight = _newPlayer.pos.y;
