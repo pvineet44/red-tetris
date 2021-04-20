@@ -36,7 +36,7 @@
     "eject": "react-scripts eject",
     "client": "react-scripts start",
     "dev": "concurrently \"nodemon backend/dist/app.js\" \"webpack -w \" \"webpack serve \"",
-    "test-client": "jest --config=jest.config.js --coverage --detectOpenHandles" ,
+    "test-client": "jest --config=jest.config.js --coverage --detectOpenHandles",
     "test-server": "cd backend && jest --config=jest.config.js --coverage --detectOpenHandles",
     "test": "npm run test-client && npm run test-server",
     "webpack": "webpack",
@@ -62,6 +62,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.15",
+    "@testing-library/react-hooks": "^5.1.1",
     "@types/cors": "^2.8.10",
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",

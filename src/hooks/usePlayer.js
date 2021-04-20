@@ -24,11 +24,13 @@ export const usePlayer = () => {
         )
 
         //Reverse each row to get rotated matrix
-        if (dir > 0) return rotatedTetro.map((row) => row.reverse());
+        if (dir > 0) 
+            return rotatedTetro.map((row) => row.reverse());
         return rotatedTetro.reverse()
     }
 
     const playerRotate = (stage, dir) => {
+        console.log('PLAYER ROTATE CALLED!')
         if (player.pos.y + player.tetrimino.length <= 20) {
             const clonedPlayer = JSON.parse(JSON.stringify(player))
             clonedPlayer.tetrimino = rotate(clonedPlayer.tetrimino, dir)

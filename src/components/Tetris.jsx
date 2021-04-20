@@ -18,7 +18,14 @@ const Tetris = (socket) => {
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
 
-  const [player, updatePlayerPos, resetPlayer, playerRotate, tetroArray, setTetroArray] = usePlayer();
+  const [
+    player,
+    updatePlayerPos,
+    resetPlayer,
+    playerRotate,
+    tetroArray,
+    setTetroArray,
+  ] = usePlayer();
   const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
   const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(
     rowsCleared
@@ -26,7 +33,6 @@ const Tetris = (socket) => {
   const [opponentStage, setOpponentStage] = useState(null);
 
   const movePlayer = (dir) => {
-    console.log("MOVE CALLED")
     if (!checkCollision(player, stage, { x: dir, y: 0 })) {
       updatePlayerPos({ x: dir, y: 0 });
     }
@@ -35,22 +41,22 @@ const Tetris = (socket) => {
   const startGame = async () => {
     console.log('starting!');
     //Reset everything
-    await socket.socket.emit('getTetros')
+    await socket.socket.emit('getTetros');
     await socket.socket.on('tetroArray', async (tetroArrayServ) => {
-
       await setTetroArray(tetroArrayServ);
       await resetPlayer(null, tetroArrayServ);
       await setStage(createStage());
       await setDropTime(1000 / (level + 1) + 200);
-      await setGameOver(false)
+      await setGameOver(false);
       await setScore(0);
       await setRows(0);
       await setLevel(0);
       // console.log("TETRO ARR", tetroArray);
-    })
+    });
   };
 
   const drop = (player, stage) => {
+    console.log('gameoever', player.pos.y);
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false });
     } else {
@@ -112,7 +118,7 @@ const Tetris = (socket) => {
         <Stage stage={stage} />
         <aside>
           {gameOver ? (
-              <Display gameOver={gameOver} text="Game Over" />
+            <Display gameOver={gameOver} text="Game Over" />
           ) : (
             <div>
               <Display gameOver={false} text={`Score: ${score}`} />

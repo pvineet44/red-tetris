@@ -9,6 +9,12 @@ import { render, fireEvent } from "@testing-library/react";
 import ToggleSound from '../components/ToggleSound';
 import { MemoryRouter } from 'react-router';
 import { useInterval } from '../hooks/useInterval';
+import {renderHook, act} from '@testing-library/react-hooks'
+import { usePlayer } from '../hooks/usePlayer';
+import { useStage } from '../hooks/useStage';
+import { checkCollision, createStage } from "../gameHelpers";
+import TestingDemo from '../components/TestingDemo';
+
 
 it("renders without crashing", () => {
   const app = shallow(<App />);
@@ -31,9 +37,121 @@ it("test toggle sound", () => {
   expect(getByTestId("toggle-sound-checkbox")).toHaveProperty("checked", false)
 });
 
-// it("useInterval test", () => {
-//   const mockfn = jest.fn();
-//   const wrapper = shallow(useInterval( mockfn, 1000));
+it("usePlayer test", () => {
+  
+  const {result} = renderHook(() => usePlayer());
+  const f = result.current[3];
+  act(() => {
+    console.log(f(createStage(), 1));
+  });
+  console.log(result.current[3]);
+})
 
-//   // expect(useInterval( mockfn, 1000)).toBe(undefined)
-// })
+it("useStage test", () => {
+
+  const resetMock = jest.fn();
+  let player = {
+    pos: {
+        x: 10,
+        y: 10,
+    },
+    tetrimino: [
+        [0, 'I', 0, 0],
+        [0, 'I', 0, 0],
+        [0, 'I', 0, 0],
+        [0, 'I', 0, 0]
+    ],
+    collided: true,
+}
+
+let stage = [
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ 
+      ["O", "merged"],  ["O", "merged"], ["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],
+  ],
+]
+
+  const { result } = renderHook(() => useStage(player, resetMock))
+  console.log('result. currant', result.current[3]);
+  const f = result.current[3];
+  act(() => {
+    f(stage)
+  })
+})
+
+it("useStage test returns", () => {
+
+  const resetMock = jest.fn();
+  let player = {
+    pos: {
+        x: 10,
+        y: 10,
+    },
+    tetrimino: [
+        [0, 'I', 0, 0],
+        [0, 'I', 0, 0],
+        [0, 'I', 0, 0],
+        [0, 'I', 0, 0]
+    ],
+    collided: false,
+}
+
+let stage = [
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
+  [ 
+      ["O", "merged"],  ["O", "merged"], ["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],
+  ],
+]
+
+  const { result } = renderHook(() => useStage(player, resetMock))
+  console.log('result. currant', result.current[3]);
+  const f = result.current[3];
+  act(() => {
+  f(stage)
+  })
+})
+
+
+it("useInterval stage", () => {
+  // const wrapper = shallow(<Welcome />);
+  const { getByText } = render(<TestingDemo />);
+  // const callbackMock = jest.fn();
+  // useInterval(callbackMock, 1000);
+
+})

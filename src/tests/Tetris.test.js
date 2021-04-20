@@ -4,7 +4,7 @@ configure({ adapter: new Adapter() });
 import React from "react";
 import App from "../App";
 
-import { render, fireEvent, waitFor, screen } from "@testing-library/react";
+import { render, fireEvent, waitFor, screen, act } from "@testing-library/react";
 import Tetris, {Tetris as TetrisObj} from '../components/Tetris';
 import socketClient from 'socket.io-client';
 import { checkCollision, createStage } from "../gameHelpers";
@@ -17,11 +17,19 @@ import { checkCollision, createStage } from "../gameHelpers";
 
 it("Test tetris movement", async () => {
     const socket = new socketClient('http://localhost:5000')
-    const { getByText, getByTestId, findByText } = render(<Tetris socket={socket} />);
+    const { getByText, getByTestId, findByText, debug } = render(<Tetris socket={socket} />);
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 37 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 38 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 40 });
     fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
+
+    let i = 0;
+    while (i < 200)
+    {
+            fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
+            i++;
+    }
+
     expect(await findByText(("Start Game"))).toBeInTheDocument
 });
 

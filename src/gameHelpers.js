@@ -7,7 +7,6 @@ export const createStage = () =>
     )
 
 export const checkCollision = (player, stage, { x: moveX, y: moveY }) => {
-    console.log("STAGE", player);
     for (let y = 0; y < player.tetrimino.length; y += 1)
         for (let x = 0; x < player.tetrimino[y].length; x += 1) {
             if (player.tetrimino[y][x] !== 0) {
