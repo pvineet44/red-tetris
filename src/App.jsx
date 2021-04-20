@@ -21,20 +21,30 @@ function App() {
     setSocket(socketClient('http://localhost:5000'));
   }, []);
 
-  if (!socket) return null;
-  return (
-    <>
-      <ReactHowler src={sfx} loop={true} playing={true} mute={!soundOn} />
-      <Switch>
-        <Route exact path="/game">
-          <Tetris socket={socket} />
-        </Route>
-        <Route path="/">
-          <Welcome
+  const tetrisComponent = () => {
+    return(
+      <Tetris socket={socket} />
+    )
+  }
+
+  const welcomeComponent = () => {
+   return ( <Welcome
             socket={socket}
             soundOn={soundOn}
             toggleSound={toggleSound}
-          />
+          />)
+  }
+
+  if (!socket) return null;
+  return (
+    <>
+      {/* <ReactHowler src={sfx} loop={true} playing={true} mute={!soundOn} /> */}
+      <Switch>
+        <Route exact path="/game">
+          {tetrisComponent()}
+        </Route>
+        <Route path="/">
+          {welcomeComponent()}
         </Route>
       </Switch>
     </>

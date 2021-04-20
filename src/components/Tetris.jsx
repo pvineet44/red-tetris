@@ -26,6 +26,7 @@ const Tetris = (socket) => {
   const [opponentStage, setOpponentStage] = useState(null);
 
   const movePlayer = (dir) => {
+    console.log("MOVE CALLED")
     if (!checkCollision(player, stage, { x: dir, y: 0 })) {
       updatePlayerPos({ x: dir, y: 0 });
     }
@@ -49,13 +50,7 @@ const Tetris = (socket) => {
     })
   };
 
-  const drop = () => {
-    //increase level when player has cleared 10 rows
-    // if (rows > (level + 1) * 20) {
-    //   setLevel((prev) => prev + 1);
-    //   //Also increase speed
-    //   setDropTime(1000 / (level + 1) + 200);
-    // }
+  const drop = (player, stage) => {
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false });
     } else {
@@ -71,7 +66,7 @@ const Tetris = (socket) => {
   const dropPlayer = () => {
     emitData();
     setDropTime(null);
-    drop();
+    drop(player, stage);
   };
 
   const keyUp = (e) => {
@@ -93,7 +88,7 @@ const Tetris = (socket) => {
 
   useInterval(() => {
     emitData();
-    drop();
+    drop(player, stage);
   }, dropTime);
 
   // console.log("SOCKET", socket.socket);
@@ -117,9 +112,7 @@ const Tetris = (socket) => {
         <Stage stage={stage} />
         <aside>
           {gameOver ? (
-            <>
               <Display gameOver={gameOver} text="Game Over" />
-            </>
           ) : (
             <div>
               <Display gameOver={false} text={`Score: ${score}`} />
