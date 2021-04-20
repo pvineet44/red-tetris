@@ -5,4 +5,6 @@ https://javascript.plainenglish.io/set-up-react-js-with-eslint-prettier-and-airb
 # Steps for running the project
 
 npm install
+
+
 npm run dev
