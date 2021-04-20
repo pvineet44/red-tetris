@@ -14,6 +14,9 @@ export const usePlayer = () => {
         }
     );
 
+    const [tetroArray, setTetroArray] = useState([]); // array of tetrominos received from backend server
+    const [tetroNumber, setTetroNumber] = useState(0); // position or pointer to current tetromino
+
     const rotate = (matrix, dir) => {
         //Make rows into colums (Matrix transpose)
         const rotatedTetro = matrix.map((_, index) =>
@@ -73,15 +76,13 @@ export const usePlayer = () => {
         return _newTetramino;
     }
     const resetPlayer = useCallback(async (s, tetroArraySrv) => {
-        // console.log(s);
-        // console.log(s);
-        let pos = parseInt(localStorage.getItem('TetroArrPos'));
-        console.log("IN RESET", JSON.parse(localStorage.getItem('TetroArr')), pos)
-        let _newTetramino = tetroArraySrv !== null ? tetroArraySrv[0].shape
-            : JSON.parse(localStorage.getItem('TetroArr'))[pos].shape
 
-        localStorage.setItem('TetroArrPos', pos + 1);
-        // console.log("pos", localStorage.getItem('TetroArrPos'))
+        console.log("tetroarray", tetroArray, tetroNumber)
+        let _newTetramino = tetroArraySrv !== null ? tetroArraySrv[0].shape
+            : tetroArray[tetroNumber].shape
+        
+
+
         if (s) {
             const _newPlayer = s;
             const _remHeight = _newPlayer.pos.y;
@@ -91,6 +92,8 @@ export const usePlayer = () => {
                 console.log('GAME OVER!')
             }
         }
+        console.log("TET num", tetroNumber)
+        setTetroNumber(tetroNumber + 1);
         /*
             1. we check if its a game over condition
                 _newTetramino.length > _remHeight
@@ -102,6 +105,6 @@ export const usePlayer = () => {
             tetrimino: _newTetramino,
             collided: false,
         })
-    }, [])
-    return [player, updatePlayerPos, resetPlayer, playerRotate];
+    }, [tetroNumber, tetroArray])
+    return [player, updatePlayerPos, resetPlayer, playerRotate, tetroArray, setTetroArray];
 }

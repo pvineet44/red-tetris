@@ -18,7 +18,7 @@ const Tetris = (socket) => {
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
 
-  const [player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
+  const [player, updatePlayerPos, resetPlayer, playerRotate, tetroArray, setTetroArray] = usePlayer();
   const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
   const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(
     rowsCleared
@@ -36,10 +36,8 @@ const Tetris = (socket) => {
     //Reset everything
     await socket.socket.emit('getTetros')
     await socket.socket.on('tetroArray', async (tetroArrayServ) => {
-      // resetTetroArray(tetroarray);
-      console.log("TETROOOOOOOOOOO", tetroArrayServ)
-      await localStorage.setItem('TetroArr', JSON.stringify(tetroArrayServ))
-      await localStorage.setItem('TetroArrPos', 0)
+
+      await setTetroArray(tetroArrayServ);
       await resetPlayer(null, tetroArrayServ);
       await setStage(createStage());
       await setDropTime(1000 / (level + 1) + 200);
