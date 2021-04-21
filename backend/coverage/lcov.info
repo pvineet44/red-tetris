@@ -1,8 +1,10 @@
 TN:
 SF:main.js
+FN:1,Object.<anonymous>
 FN:4,sum
-FNF:1
-FNH:1
+FNF:2
+FNH:2
+FNDA:1,Object.<anonymous>
 FNDA:1,sum
 DA:1,1
 DA:2,1
@@ -14,7 +16,9 @@ DA:7,1
 DA:8,1
 LF:8
 LH:8
-BRDA:4,0,0,1
-BRF:1
-BRH:1
+BRDA:1,0,0,1
+BRDA:1,1,0,1
+BRDA:4,2,0,1
+BRF:3
+BRH:3
 end_of_record
