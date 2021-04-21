@@ -5,43 +5,19 @@ import React from "react";
 import App from "../App";
 
 import { render, fireEvent, waitFor, screen, act } from "@testing-library/react";
-import Tetris, {Tetris as TetrisObj} from '../components/Tetris';
+import Tetris, { Tetris as TetrisObj } from '../components/Tetris';
 import socketClient from 'socket.io-client';
 import { checkCollision, createStage } from "../gameHelpers";
-
-
-// it("Tetris test", () => {
-//     const app = shallow(<App />);
-//   });
-
 
 it("Test tetris movement", async () => {
     const socket = new socketClient('http://localhost:5000')
     const { getByText, getByTestId, findByText, debug } = render(<Tetris socket={socket} />);
+    fireEvent.click(getByText("Start Game"));
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 37 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 38 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
-    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 40 });
-    // fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
-
-    let i = 0;
-    while (i < 3000)
-    {
-            await fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 40 });
-            i++;
-    }
+    fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
 
     expect(await findByText(("Start Game"))).toBeInTheDocument
 });

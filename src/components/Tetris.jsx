@@ -38,28 +38,32 @@ const Tetris = (socket) => {
     }
   };
 
+  const setValues = async (tetroArrayServ) => {
+
+    await setTetroArray(tetroArrayServ);
+    await resetPlayer(null, tetroArrayServ);
+    await setStage(createStage());
+    await setDropTime(1000 / (level + 1) + 200);
+    await setGameOver(false);
+    await setScore(0);
+    await setRows(0);
+    await setLevel(0);
+  }
+
   const startGame = async () => {
     console.log('starting!');
     //Reset everything
-    await socket.socket.emit('getTetros');
-    await socket.socket.on('tetroArray', async (tetroArrayServ) => {
-      await setTetroArray(tetroArrayServ);
-      await resetPlayer(null, tetroArrayServ);
-      await setStage(createStage());
-      await setDropTime(1000 / (level + 1) + 200);
-      await setGameOver(false);
-      await setScore(0);
-      await setRows(0);
-      await setLevel(0);
-      // console.log("TETRO ARR", tetroArray);
+     await socket.socket.emit('getTetros');
+     socket.socket.on('tetroArray', async (tetroArrayServ) => {
+      setValues(tetroArrayServ)
     });
   };
 
   const drop = (player, stage) => {
     console.log(
       'gameoever',
-      player.pos
-      // !checkCollision(player, stage, { x: 0, y: 1 })
+      player.pos,
+      !checkCollision(player, stage, { x: 0, y: 1 })
     );
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false });
