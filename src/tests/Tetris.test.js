@@ -35,12 +35,13 @@ it("Test tetris movement", async () => {
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 40 });
     // fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
-    // let i = 0;
-    // while (i < 200)
-    // {
-    //         fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
-    //         i++;
-    // }
+
+    let i = 0;
+    while (i < 3000)
+    {
+            await fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 40 });
+            i++;
+    }
 
     expect(await findByText(("Start Game"))).toBeInTheDocument
 });
@@ -77,7 +78,7 @@ it("Test collision", () => {
 
     let player2 = {
         pos: {
-            x: 10,
+            x: 4,
             y: 0,
         },
         tetrimino: [
@@ -89,4 +90,5 @@ it("Test collision", () => {
     }
     expect(checkCollision(player, createStage(), { x: 0, y: 1 })).toBe(true)
     expect(checkCollision(player1, createStage(), { x: 0, y: 1 })).toBe(undefined)
+    expect(checkCollision(player2, createStage(), { x: 0, y: 1 })).toBe(undefined)
 });

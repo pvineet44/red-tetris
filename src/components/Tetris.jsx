@@ -56,10 +56,15 @@ const Tetris = (socket) => {
   };
 
   const drop = (player, stage) => {
-    console.log('gameoever', player.pos.y);
+    console.log(
+      'gameoever',
+      player.pos
+      // !checkCollision(player, stage, { x: 0, y: 1 })
+    );
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false });
     } else {
+      console.log('b');
       //Gameover case
       if (player.pos.y < 1) {
         setGameOver(true);
