@@ -84,6 +84,7 @@ const Tetris = (socket) => {
   };
 
   const move = (e) => {
+    console.log(e.keyCode);
     if (!gameOver) {
       if (e.keyCode === 37) movePlayer(-1);
       else if (e.keyCode === 39) movePlayer(1);

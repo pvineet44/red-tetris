@@ -20,15 +20,27 @@ it("Test tetris movement", async () => {
     const { getByText, getByTestId, findByText, debug } = render(<Tetris socket={socket} />);
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 37 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 38 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
+    fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 40 });
-    fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
-
-    let i = 0;
-    while (i < 200)
-    {
-            fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
-            i++;
-    }
+    // fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
+    // let i = 0;
+    // while (i < 200)
+    // {
+    //         fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
+    //         i++;
+    // }
 
     expect(await findByText(("Start Game"))).toBeInTheDocument
 });
