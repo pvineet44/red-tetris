@@ -33,11 +33,18 @@ const Welcome = (props) => {
     } else {
       setLoading(true);
       socket.emit('createOrJoin', {
-        roomName: roomName,
-        userName: userName,
+        roomName: roomName.toLowerCase(),
+        userName: userName.toLowerCase(),
       });
       socket.on('MaxLimit', (data) => {
-        console.log(data);
+        console.log('error: ', data);
+        setShowErrorMessage(true);
+        setErrorMessage(data);
+        setLoading(false);
+      });
+      socket.on('UserNameTaken', (data) => {
+        console.log('error: ', data);
+        setShowErrorMessage(true);
         setErrorMessage(data);
         setLoading(false);
       });

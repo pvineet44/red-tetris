@@ -44,6 +44,10 @@ class SocketManager {
           this.emitSelf('MaxLimit', 'Room is Full.');
           return;
         }
+        if (room.players.get(userName)) {
+          this.emitSelf('UserNameTaken', 'Username is already taken');
+          return;
+        }
         var _newPlayer = new Player(this.id, userName);
         room.players.set(userName, _newPlayer);
         this.socket.join(roomName);
