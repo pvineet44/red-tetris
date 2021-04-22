@@ -1,5 +1,7 @@
-import randomTetrominoArray from './src/tetrominos.ts';
+// import randomTetrominoArray from './src/tetrominos.ts';
+const { test, expect } = require('@jest/globals');
 
-it("Get Tetro test", () => {
-    expect(randomTetrominoArray()).toBe(true)
+const {randomTetrominoArray} = require('./src/tetrominos')
+test("Get Tetro test", () => {
+    expect(randomTetrominoArray()).toHaveLength(1000)
 })
