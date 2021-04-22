@@ -6,6 +6,8 @@ import Tetris from './components/Tetris';
 import Welcome from './components/Welcome';
 import sfx from './assets/sound/Tetris.mp3';
 import ReactHowler from 'react-howler';
+import Loader from './components/Loader';
+import TetrisProvider from './components/TetrisProvider';
 
 // const SERVER = "http://localhost:" + process.env.REACT_APP_PORT;
 
@@ -22,30 +24,24 @@ function App() {
   }, []);
 
   const tetrisComponent = () => {
-    return(
-      <Tetris socket={socket} />
-    )
-  }
+    return <TetrisProvider socket={socket} />;
+  };
 
   const welcomeComponent = () => {
-   return ( <Welcome
-            socket={socket}
-            soundOn={soundOn}
-            toggleSound={toggleSound}
-          />)
-  }
+    return (
+      <Welcome socket={socket} soundOn={soundOn} toggleSound={toggleSound} />
+    );
+  };
 
   if (!socket) return null;
   return (
     <>
       {/* <ReactHowler src={sfx} loop={true} playing={true} mute={!soundOn} /> */}
       <Switch>
-        <Route exact path="/game">
+        <Route exact path="/:roomName[:userName]">
           {tetrisComponent()}
         </Route>
-        <Route path="/">
-          {welcomeComponent()}
-        </Route>
+        <Route path="/">{welcomeComponent()}</Route>
       </Switch>
     </>
   );

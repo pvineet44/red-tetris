@@ -1,20 +1,65 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tetrominos_1 = require("../tetrominos");
+const { Rooms } = require('../Rooms');
+const Room = require('./Room');
+const Player = require('./Player');
 class SocketManager {
     constructor(io, socket) {
         this.io = io;
         this.socket = socket;
         this.id = socket.client.id;
         this.roomName = '';
-        console.log(`connection "${socket.id}" connected`);
         socket.on('disconnect', () => {
             console.log(`"${socket.id}" disconnected`);
         });
     }
     on() {
+        this._createOrJoin();
         this._stage();
         this._getTetros();
+    }
+    emit(event, data) {
+        this.io.to(this.roomName).emit(event, data);
+    }
+    emitSelf(event, data) {
+        this.io.to(this.socket.id).emit(event, data);
+    }
+    _createOrJoin() {
+        this.socket.on('createOrJoin', (data) => {
+            const { roomName, userName } = data;
+            if (Rooms.has(roomName)) {
+                var room = Rooms.get(roomName);
+                this.roomName = roomName;
+                // if (room.players.size >= 3)
+                // return;
+                var _newPlayer = new Player(this.id, userName);
+                room.players.set(userName, _newPlayer);
+                this.socket.join(roomName);
+                let playerArray = [];
+                for (let value of room.players.values()) {
+                    playerArray.push({
+                        name: value.name,
+                        isOwner: room.owner === value.id ? true : false,
+                    });
+                }
+                this.emit('Game', playerArray);
+            }
+            else {
+                var _newRoom = new Room(roomName);
+                var _newPlayer = new Player(this.id, userName);
+                _newRoom.players.set(userName, _newPlayer);
+                _newRoom.owner = _newPlayer.id;
+                this.socket.join(roomName);
+                Rooms.set(roomName, _newRoom);
+                let playerArray = [];
+                playerArray.push({
+                    name: _newPlayer.name,
+                    isOwner: true,
+                });
+                this.emitSelf('Game', playerArray);
+            }
+        });
     }
     _stage() {
         this.socket.on('stage', (stage) => {

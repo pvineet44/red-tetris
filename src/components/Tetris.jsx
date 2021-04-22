@@ -39,7 +39,6 @@ const Tetris = (socket) => {
   };
 
   const setValues = async (tetroArrayServ) => {
-
     await setTetroArray(tetroArrayServ);
     await resetPlayer(null, tetroArrayServ);
     await setStage(createStage());
@@ -48,14 +47,14 @@ const Tetris = (socket) => {
     await setScore(0);
     await setRows(0);
     await setLevel(0);
-  }
+  };
 
   const startGame = async () => {
     console.log('starting!');
     //Reset everything
-     await socket.socket.emit('getTetros');
-     socket.socket.on('tetroArray', async (tetroArrayServ) => {
-      setValues(tetroArrayServ)
+    await socket.socket.emit('getTetros');
+    socket.socket.on('tetroArray', async (tetroArrayServ) => {
+      setValues(tetroArrayServ);
     });
   };
 
