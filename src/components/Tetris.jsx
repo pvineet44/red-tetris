@@ -17,7 +17,7 @@ import OpponentView from './OpponentView';
 const Tetris = (socket) => {
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-
+  // const socket = socket.socket;
   const [
     player,
     updatePlayerPos,
@@ -52,8 +52,8 @@ const Tetris = (socket) => {
   const startGame = async () => {
     console.log('starting!');
     //Reset everything
-    await socket.socket.emit('getTetros');
-    socket.socket.on('tetroArray', async (tetroArrayServ) => {
+    await socket.socket.socket.emit('getTetros');
+    socket.socket.socket.on('tetroArray', async (tetroArrayServ) => {
       setValues(tetroArrayServ);
     });
   };
@@ -109,8 +109,8 @@ const Tetris = (socket) => {
   // console.log("SOCKET", socket.socket);
 
   const emitData = () => {
-    socket.socket.emit('stage', stage);
-    socket.socket.on('OpponentStage', async (oppStage) => {
+    socket.socket.socket.emit('stage', stage);
+    socket.socket.socket.on('OpponentStage', async (oppStage) => {
       setOpponentStage(oppStage);
     });
   };

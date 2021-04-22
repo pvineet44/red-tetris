@@ -31,15 +31,18 @@ class SocketManager {
             if (Rooms.has(roomName)) {
                 var room = Rooms.get(roomName);
                 this.roomName = roomName;
-                // if (room.players.size >= 3)
-                // return;
+                if (room.players.size >= 2) {
+                    console.log('LIMIT!');
+                    this.emitSelf('MaxLimit', 'Room is Full.');
+                    return;
+                }
                 var _newPlayer = new Player(this.id, userName);
                 room.players.set(userName, _newPlayer);
                 this.socket.join(roomName);
                 let playerArray = [];
                 for (let value of room.players.values()) {
                     playerArray.push({
-                        name: value.name,
+                        playerName: value.name,
                         isOwner: room.owner === value.id ? true : false,
                     });
                 }
@@ -54,7 +57,7 @@ class SocketManager {
                 Rooms.set(roomName, _newRoom);
                 let playerArray = [];
                 playerArray.push({
-                    name: _newPlayer.name,
+                    playerName: _newPlayer.name,
                     isOwner: true,
                 });
                 this.emitSelf('Game', playerArray);

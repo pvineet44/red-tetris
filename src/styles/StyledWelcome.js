@@ -20,7 +20,7 @@ export const StyledWelcome = styled.div`
 `;
 
 export const WelcomeFormContainer = styled.div`
-  height: 60vh;
+  height: 70vh;
   width: 30vw;
   background-color: rgb(56,56,56, 0.5);
   object-fit: cover;
@@ -56,7 +56,7 @@ export const WelcomeForm = styled.div`
   align-items: center;
   background-color: rgb(69,69,69, 0.7);
   width: 25vw;
-  height: 45vh;
+  height: 65vh;
   border-radius: 10px;
   h1 {
     color: ${darkPink};
@@ -176,3 +176,7 @@ export const WelcomeForm = styled.div`
 }
 `;
 
+export const ErrorMessage = styled.div`
+  margin-top: 5vh;
+  color: ${darkPink};
+`;

@@ -10,13 +10,13 @@ const TetrisProvider = (socket) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    _socket.emit('createOrJoin', {
-      roomName: roomName,
-      userName: userName,
-    });
-    _socket.on('Game', async (data) => {
-      console.log('Game data: ', data);
-    });
+    // _socket.emit('createOrJoin', {
+    //   roomName: roomName,
+    //   userName: userName,
+    // });
+    // _socket.on('Game', async (data) => {
+    //   console.log('Game data: ', data);
+    // });
     setInterval(function () {
       setLoading(false);
     }, 5000);
