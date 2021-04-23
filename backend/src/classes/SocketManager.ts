@@ -40,12 +40,14 @@ class SocketManager {
       if (Rooms.has(roomName)) {
         var room = Rooms.get(roomName);
         this.roomName = roomName;
-        if (room.players.size >= 2) {
+        if (room.players.size >= 3) {
           console.log('LIMIT!');
           this.emitSelf('MaxLimit', 'Room is Full.');
           return;
         }
         if (room.players.get(userName)) {
+          // get player by userName need to make this.
+          console.log('DUPLICATE USERNAME!');
           this.emitSelf('UserNameTaken', 'Username is already taken');
           return;
         }
@@ -60,7 +62,8 @@ class SocketManager {
             isOwner: room.owner === value.id ? true : false,
           });
         }
-        this.emit('Game', playerArray);
+        this.emitSelf('Valid', 'Starting game'); //welcome component
+        this.emit('Game', playerArray); // tetris component
       } else {
         var _newRoom = new Room(roomName);
         var _newPlayer = new Player(this.id, userName);
@@ -75,7 +78,9 @@ class SocketManager {
           playerName: _newPlayer.name,
           isOwner: true,
         });
-        this.emitSelf('Game', playerArray);
+        this.emitSelf('Valid', 'Starting game'); // welcome component
+        this.emitSelf('Game', playerArray); // tetris component
+        this.emit('Game', playerArray); // tetris component
       }
     });
   }
@@ -126,7 +131,7 @@ class SocketManager {
           isOwner: room.owner === value.id ? true : false,
         });
       }
-      this.emit('Game', playerArray);
+      this.emit('Game', playerArray); //tetris component
     }
   }
 }

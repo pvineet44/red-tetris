@@ -48,10 +48,9 @@ const Welcome = (props) => {
         setErrorMessage(data);
         setLoading(false);
       });
-      socket.on('Game', async (data) => {
-        console.log('Game data: ', data);
-        setLoading(false);
+      socket.on('Valid', async (data) => {
         history.push(`/${roomName}[${userName}]`);
+        // setLoading(false);
       });
     }
   };
