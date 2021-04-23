@@ -13,7 +13,6 @@ export const useGameStatus = (rowsCleared) => {
         //We have score
         if(rowsCleared > 0){
             //Original Tetris score calculating system
-            console.log("SCORE: rows BEF IS", score, rowsCleared)
             await setScore((prev) => prev + linePoints[rowsCleared - 1] * (level + 1));
             await setRows((prev) => prev + rowsCleared);
             // console.log("SCORE: rows AFT IS", score, rows)

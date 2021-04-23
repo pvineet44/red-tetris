@@ -10,7 +10,6 @@ export const useStage = (player, resetPlayer) => {
             newStage.reduce((ack, row) => {
                 if (row.findIndex((cell) => cell[0] === 0) === -1) {
                     setRowsCleared(prev => prev + 1);
-                    console.log("RC", rowsCleared)
                     ack.unshift(new Array(newStage[0].length).fill([0, 'clear']));
                     return ack;
                 }
@@ -39,7 +38,6 @@ export const useStage = (player, resetPlayer) => {
         //Then check if collided
         // console.log('player: ', player);
         if (player.collided) {
-            console.log("called twice")
             resetPlayer(JSON.parse(JSON.stringify(player)), null);
             return sweepRows(newStage);
         }

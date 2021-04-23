@@ -25,6 +25,8 @@ const Tetris = (socket) => {
     playerRotate,
     tetroArray,
     setTetroArray,
+    isFinalTetro,
+    initFinalTetroCheck,
   ] = usePlayer();
   const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
   const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(
@@ -33,12 +35,15 @@ const Tetris = (socket) => {
   const [opponentStage, setOpponentStage] = useState(null);
 
   const movePlayer = (dir) => {
+    if(isFinalTetro)
+      return;
     if (!checkCollision(player, stage, { x: dir, y: 0 })) {
       updatePlayerPos({ x: dir, y: 0 });
     }
   };
 
   const setValues = async (tetroArrayServ) => {
+    await initFinalTetroCheck();
     await setTetroArray(tetroArrayServ);
     await resetPlayer(null, tetroArrayServ);
     await setStage(createStage());
@@ -59,15 +64,9 @@ const Tetris = (socket) => {
   };
 
   const drop = (player, stage) => {
-    console.log(
-      'gameoever',
-      player.pos,
-      !checkCollision(player, stage, { x: 0, y: 1 })
-    );
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false });
     } else {
-      console.log('b');
       //Gameover case
       if (player.pos.y < 1) {
         setGameOver(true);

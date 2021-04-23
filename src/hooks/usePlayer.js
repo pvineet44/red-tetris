@@ -16,7 +16,11 @@ export const usePlayer = () => {
 
     const [tetroArray, setTetroArray] = useState([]); // array of tetrominos received from backend server
     const [tetroNumber, setTetroNumber] = useState(0); // position or pointer to current tetromino
+    const [isFinalTetro, setIsFinalTetro] = useState(false);
 
+    const initFinalTetroCheck = async () => {
+        await setIsFinalTetro(false);
+    }
     const rotate = (matrix, dir) => {
         //Make rows into colums (Matrix transpose)
         const rotatedTetro = matrix.map((_, index) =>
@@ -69,9 +73,14 @@ export const usePlayer = () => {
     }
 
     const getFinalTetramino = (tetramino, height) => {
+        setIsFinalTetro(true)
+        console.log("FINAL TETRA", tetramino, height)
         const _newTetramino = [];
+        console.log(tetramino.length, tetramino[1].indexOf('Z'), tetramino[2].indexOf('S'), tetramino[2][1])
+        var cutPoint =  (tetramino.length === 3 && (tetramino[1][1] === 'S' || tetramino[1][1] === 'Z')) ? tetramino.length - height - 2 : tetramino.length - height - 1;
+
         for (let i = 0; i < tetramino.length; i++) {
-            if (i > tetramino.length - height - 1) {
+            if (i > cutPoint) {
                 _newTetramino.push(tetramino[i])
             }
         }
@@ -79,7 +88,7 @@ export const usePlayer = () => {
     }
     const resetPlayer = useCallback(async (s, tetroArraySrv) => {
 
-        console.log("tetroarray", tetroArray, tetroNumber)
+        // console.log("tetroarray", tetroArray, tetroNumber)
         let _newTetramino = tetroArraySrv !== null ? tetroArraySrv[0].shape
             : tetroArray[tetroNumber].shape
         
@@ -87,14 +96,14 @@ export const usePlayer = () => {
 
         if (s) {
             const _newPlayer = s;
-            const _remHeight = _newPlayer.pos.y;
-            console.log('pc: ', JSON.parse(JSON.stringify(_newPlayer)).collided)
+            let _remHeight = _newPlayer.pos.y;
             if (_newPlayer.collided && _newTetramino.length > _remHeight) {
+                if( player.tetrimino && player.tetrimino[1] && player.tetrimino[1][1] === 'T')
+                    _remHeight = _remHeight + 1;
                 _newTetramino = getFinalTetramino(_newTetramino, _remHeight);
                 console.log('GAME OVER!')
             }
         }
-        console.log("TET num", tetroNumber)
         setTetroNumber(tetroNumber + 1);
         /*
             1. we check if its a game over condition
@@ -108,5 +117,5 @@ export const usePlayer = () => {
             collided: false,
         })
     }, [tetroNumber, tetroArray])
-    return [player, updatePlayerPos, resetPlayer, playerRotate, tetroArray, setTetroArray];
+    return [player, updatePlayerPos, resetPlayer, playerRotate, tetroArray, setTetroArray, isFinalTetro, initFinalTetroCheck];
 }
