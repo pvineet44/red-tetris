@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Stage from './Stage';
 import Display from './Display';
 import StartButton from './StartButton';
 
 import { createStage, checkCollision } from '../gameHelpers';
 //styled components
-import { StyledTetris, StyledTetrisWrapper } from '../styles/StyledTetris';
+import {
+  StyledTetris,
+  StyledTetrisWrapper,
+  OpponentViewWrapper,
+} from '../styles/StyledTetris';
 
+import { useParams } from 'react-router';
 //custom hooks
+
 import { usePlayer } from '../hooks/usePlayer';
 import { useStage } from '../hooks/useStage';
 import { useInterval } from '../hooks/useInterval';
@@ -15,6 +21,7 @@ import { useGameStatus } from '../hooks/useGameStatus';
 import OpponentView from './OpponentView';
 
 const Tetris = (socket) => {
+  const { roomName, userName } = useParams();
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   // const socket = socket.socket;
@@ -33,6 +40,19 @@ const Tetris = (socket) => {
     rowsCleared
   );
   const [opponentStage, setOpponentStage] = useState(null);
+  const [gamePlayers, setGamePlayers] = useState([]);
+  const [owner, setOwner] = useState(false);
+
+  useEffect(() => {
+    console.log('I am ', userName);
+    socket.socket.on('Game', async (data) => {
+      console.log(data);
+      data.forEach((player) => {
+        if (player.playerName === userName && player.isOwner) setOwner(true);
+      });
+      setGamePlayers(data);
+    });
+  }, []);
 
   const movePlayer = (dir) => {
     if(isFinalTetro)
@@ -57,8 +77,8 @@ const Tetris = (socket) => {
   const startGame = async () => {
     console.log('starting!');
     //Reset everything
-    await socket.socket.socket.emit('getTetros');
-    socket.socket.socket.on('tetroArray', async (tetroArrayServ) => {
+    await socket.socket.emit('getTetros');
+    socket.socket.on('tetroArray', async (tetroArrayServ) => {
       setValues(tetroArrayServ);
     });
   };
@@ -105,11 +125,9 @@ const Tetris = (socket) => {
     drop(player, stage);
   }, dropTime);
 
-  // console.log("SOCKET", socket.socket);
-
   const emitData = () => {
-    socket.socket.socket.emit('stage', stage);
-    socket.socket.socket.on('OpponentStage', async (oppStage) => {
+    socket.socket.emit('stage', stage);
+    socket.socket.on('OpponentStage', async (oppStage) => {
       setOpponentStage(oppStage);
     });
   };
@@ -134,10 +152,24 @@ const Tetris = (socket) => {
               <Display gameOver={false} text={`Level: ${level}`} />
             </div>
           )}
-          <StartButton callback={() => startGame()} />
-          {opponentStage !== null ? (
-            <OpponentView stage={opponentStage} />
-          ) : null}
+          <StartButton
+            text={owner ? 'Start Game' : 'Ready'}
+            callback={() => startGame()}
+          />
+          <OpponentViewWrapper>
+            {gamePlayers.map((player, index) => (
+              <div
+                style={{ width: player.playerName === userName ? '0%' : '50%' }}
+                key={index}
+              >
+                {player.playerName === userName ? null : (
+                  <div>
+                    <OpponentView stage={stage} userName={player.playerName} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </OpponentViewWrapper>
         </aside>
       </StyledTetris>
     </StyledTetrisWrapper>

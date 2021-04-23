@@ -15,3 +15,17 @@ export const StyledOpponent = styled.div`
   max-width: 10vw;
   background: #111;
 `;
+
+export const StyledUserName = styled.div`
+color: white;
+font-size: 20px;
+font-family: Pixel, Arial, Helvetica, sans-serif;
+margin-top: 5px;
+`;
+
+export const StyledOpponentContainer = styled.div`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      `

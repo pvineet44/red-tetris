@@ -24,7 +24,7 @@ function App() {
   }, []);
 
   const tetrisComponent = () => {
-    return <TetrisProvider socket={socket} />;
+    return <Tetris socket={socket} />;
   };
 
   const welcomeComponent = () => {
