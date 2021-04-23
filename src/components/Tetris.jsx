@@ -5,7 +5,11 @@ import StartButton from './StartButton';
 
 import { createStage, checkCollision } from '../gameHelpers';
 //styled components
-import { StyledTetris, StyledTetrisWrapper } from '../styles/StyledTetris';
+import {
+  StyledTetris,
+  StyledTetrisWrapper,
+  OpponentViewWrapper,
+} from '../styles/StyledTetris';
 
 import { useParams } from 'react-router';
 //custom hooks
@@ -153,9 +157,20 @@ const Tetris = (socket) => {
             text={owner ? 'Start Game' : 'Ready'}
             callback={() => startGame()}
           />
-          {opponentStage !== null ? (
-            <OpponentView stage={opponentStage} />
-          ) : null}
+          <OpponentViewWrapper>
+            {gamePlayers.map((player, index) => (
+              <div
+                style={{ width: player.playerName === userName ? '0%' : '50%' }}
+                key={index}
+              >
+                {player.playerName === userName ? null : (
+                  <div>
+                    <OpponentView stage={stage} userName={player.playerName} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </OpponentViewWrapper>
         </aside>
       </StyledTetris>
     </StyledTetrisWrapper>

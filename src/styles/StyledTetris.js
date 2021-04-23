@@ -23,3 +23,9 @@ export const StyledTetris = styled.div`
     padding: 0 20px;
   }
 `;
+
+export const OpponentViewWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+`;
