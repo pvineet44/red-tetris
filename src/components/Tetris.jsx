@@ -32,6 +32,12 @@ const Tetris = (socket) => {
   );
   const [opponentStage, setOpponentStage] = useState(null);
 
+  socket.socket.socket.on('Game', async (data) => {
+    console.log('Tetris : ', socket);
+    // setLoading(false);
+    // history.push(`/${roomName}[${userName}]`);
+  });
+
   const movePlayer = (dir) => {
     if (!checkCollision(player, stage, { x: dir, y: 0 })) {
       updatePlayerPos({ x: dir, y: 0 });
@@ -105,8 +111,6 @@ const Tetris = (socket) => {
     emitData();
     drop(player, stage);
   }, dropTime);
-
-  // console.log("SOCKET", socket.socket);
 
   const emitData = () => {
     socket.socket.socket.emit('stage', stage);

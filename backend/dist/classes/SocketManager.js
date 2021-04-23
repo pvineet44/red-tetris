@@ -18,6 +18,7 @@ class SocketManager {
         this._createOrJoin();
         this._stage();
         this._getTetros();
+        this._onDisconnecting();
     }
     emit(event, data) {
         this.io.to(this.roomName).emit(event, data);
@@ -41,7 +42,8 @@ class SocketManager {
                     return;
                 }
                 var _newPlayer = new Player(this.id, userName);
-                room.players.set(userName, _newPlayer);
+                room.addPlayer(_newPlayer);
+                //room.players.set(userName, _newPlayer);
                 this.socket.join(roomName);
                 let playerArray = [];
                 for (let value of room.players.values()) {
@@ -55,9 +57,11 @@ class SocketManager {
             else {
                 var _newRoom = new Room(roomName);
                 var _newPlayer = new Player(this.id, userName);
-                _newRoom.players.set(userName, _newPlayer);
+                _newRoom.addPlayer(_newPlayer);
+                // _newRoom.players.set(userName, _newPlayer);
                 _newRoom.owner = _newPlayer.id;
                 this.socket.join(roomName);
+                this.roomName = roomName;
                 Rooms.set(roomName, _newRoom);
                 let playerArray = [];
                 playerArray.push({
@@ -78,6 +82,38 @@ class SocketManager {
             console.log('GET TETROS  CALLED');
             this.socket.emit('tetroArray', tetrominos_1.randomTetrominoArray());
         });
+    }
+    _onDisconnecting() {
+        this.socket.on('disconnecting', () => {
+            this._quit();
+        });
+    }
+    _quit() {
+        console.log('Room Name: ', Rooms.get(this.roomName));
+        console.log(`"${this.socket.id}" disconnected`);
+        var room = Rooms.get(this.roomName);
+        if (!room)
+            return;
+        room.removePlayerById(this.id);
+        this.socket.leave(this.roomName);
+        if (room.players.size === 0) {
+            Rooms.delete(room);
+            return;
+        }
+        // if (room.isStarted && room.players.size === 1) {
+        // } else if (room.isStarted && room.players.size > 1) {
+        // }
+        if (!room.isStarted && room.owner === this.id) {
+            room.owner = room.players.keys().next().value;
+            let playerArray = [];
+            for (let value of room.players.values()) {
+                playerArray.push({
+                    playerName: value.name,
+                    isOwner: room.owner === value.id ? true : false,
+                });
+            }
+            this.emit('Game', playerArray);
+        }
     }
 }
 module.exports = SocketManager;
