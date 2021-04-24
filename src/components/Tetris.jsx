@@ -55,11 +55,12 @@ const Tetris = (socket) => {
   }, []);
 
   const movePlayer = (dir) => {
-    if(isFinalTetro)
+    if (isFinalTetro)
       return;
     if (!checkCollision(player, stage, { x: dir, y: 0 })) {
       updatePlayerPos({ x: dir, y: 0 });
     }
+    emitData()
   };
 
   const setValues = async (tetroArrayServ) => {
@@ -97,7 +98,7 @@ const Tetris = (socket) => {
   };
 
   const dropPlayer = () => {
-    emitData();
+    // emitData();
     setDropTime(null);
     drop(player, stage);
   };
@@ -117,6 +118,7 @@ const Tetris = (socket) => {
       else if (e.keyCode === 39) movePlayer(1);
       else if (e.keyCode === 40) dropPlayer();
       else if (e.keyCode === 38) playerRotate(stage, 1);
+      emitData();
     }
   };
 
@@ -126,10 +128,7 @@ const Tetris = (socket) => {
   }, dropTime);
 
   const emitData = () => {
-    socket.socket.emit('stage', stage);
-    socket.socket.on('OpponentStage', async (oppStage) => {
-      setOpponentStage(oppStage);
-    });
+    socket.socket.emit('stage', { stage, userName });
   };
 
   return (
@@ -164,7 +163,7 @@ const Tetris = (socket) => {
               >
                 {player.playerName === userName ? null : (
                   <div>
-                    <OpponentView stage={stage} userName={player.playerName} />
+                    <OpponentView stage={player.stage ? player.stage : stage} userName={player.playerName} socket={socket} />
                   </div>
                 )}
               </div>

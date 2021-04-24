@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyledOpponent,
   StyledUserName,
@@ -6,11 +6,27 @@ import {
 } from '../styles/StyledOpponent';
 import Cell from './Cell';
 
-const OpponentView = ({ stage, userName }) => {
+const OpponentView = ({ stage, userName, socket }) => {
+  const [dispStage, setDispStage] = useState([])
+
+  useEffect(() => {
+    socket.socket.on('OpponentStage', async (oppStage) => {
+      console.log("Listening", oppStage.userName, userName)
+      if(userName === oppStage.userName)
+        await setDispStage(oppStage.stage)
+    });
+  }, [])
+
   return (
     <StyledOpponentContainer>
       <StyledOpponent width={stage[0].length} height={stage.length}>
-        {stage.map((row) =>
+        {
+        dispStage.length > 0 ?
+        dispStage.map((row) =>
+          row.map((cell, x) => <Cell key={x} type={cell[0]} />)
+        )
+        :
+        stage.map((row) =>
           row.map((cell, x) => <Cell key={x} type={cell[0]} />)
         )}
       </StyledOpponent>
