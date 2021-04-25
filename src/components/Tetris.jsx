@@ -111,6 +111,16 @@ const Tetris = (socket) => {
     }
   };
 
+  const freeDropPlayer = async () => {
+    var i = 0;
+    for (i; i < 20; i++) {
+      if (checkCollision(player, stage, { x: 0, y: i })) {
+        break;
+      }
+    }
+    await updatePlayerPos({ x: 0, y: i - 1, collided: true });
+  }
+
   const move = (e) => {
     console.log(e.keyCode);
     if (!gameOver) {
@@ -118,6 +128,7 @@ const Tetris = (socket) => {
       else if (e.keyCode === 39) movePlayer(1);
       else if (e.keyCode === 40) dropPlayer();
       else if (e.keyCode === 38) playerRotate(stage, 1);
+      else if (e.keyCode === 32) freeDropPlayer();
       emitData();
     }
   };
