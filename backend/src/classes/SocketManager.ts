@@ -28,6 +28,7 @@ class SocketManager {
     this._onDisconnecting();
     this._onPenalty();
     this._onReady();
+    this._onGameOver();
   }
 
   emit(event: string, data: any): void {
@@ -100,6 +101,7 @@ class SocketManager {
       console.log('GET TETROS  CALLED');
       var room = Rooms.get(this.roomName);
       room.gameStarted();
+      room.isStarted = true;
       this.emit('tetroArray', randomTetrominoArray());
     });
   }
@@ -128,6 +130,28 @@ class SocketManager {
     // if (room.isStarted && room.players.size === 1) {
     // } else if (room.isStarted && room.players.size > 1) {
     // }
+    if (room.isStarted && room.players.size === 1) {
+      room.owner = room.players.keys().next().value;
+      let playerArray: object[] = [];
+      for (let value of room.players.values()) {
+        playerArray.push({
+          playerName: value.name,
+          isOwner: room.owner === value.id ? true : false,
+        });
+      }
+      this.emit('Game', playerArray); //tetris component
+    } else if (room.isStarted && room.players.size > 1) {
+      room.owner = room.players.keys().next().value;
+      let playerArray: object[] = [];
+      for (let value of room.players.values()) {
+        playerArray.push({
+          playerName: value.name,
+          isOwner: room.owner === value.id ? true : false,
+        });
+      }
+      this.emit('Game', playerArray); //tetris component
+    }
+
     if (!room.isStarted && room.owner === this.id) {
       room.owner = room.players.keys().next().value;
       let playerArray: object[] = [];
@@ -161,6 +185,27 @@ class SocketManager {
         console.log('can start');
         this.emit('CanStart', '');
       }
+    });
+  }
+
+  _onGameOver(): void {
+    this.socket.on('GameOver', (playerName: string) => {
+      console.log('player Name', playerName);
+      var room = Rooms.get(this.roomName);
+      if (!room) return;
+      let _player = room.findPlayerById(this.id);
+      _player.updatePlayerStatus(PLAYER_STATUS.GAMEOVER);
+
+      if (room.isGameOver()) this.emit('Over', room.getWinnerName());
+      /**
+       * Case I. one player's status is not game over: GAME IS OVER
+       *  a. Change losing player status to GameOver
+       *  b. Change room winner to winning player
+       *  c. Emit game over event to the frontend
+       *
+       * Case II. two player's status is not game over:
+       *  a. change losing player status to GameOver
+       */
     });
   }
 }

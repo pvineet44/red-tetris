@@ -27,6 +27,7 @@ const Tetris = (socket) => {
   const [ready, isReady] = useState(false);
   const [start, setStart] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [gameOverText, setGameOverText] = useState('Game Over');
   // const socket = socket.socket;
   const [
     player,
@@ -67,6 +68,11 @@ const Tetris = (socket) => {
       isReady(false);
       console.log('recv tetro', tetroArrayServ);
       setValues(tetroArrayServ);
+    });
+    socket.socket.on('Over', (winner) => {
+      setGameOver(true);
+      setDropTime(null);
+      if (winner === userName) setGameOverText('You win!');
     });
   }, []);
 
@@ -113,6 +119,7 @@ const Tetris = (socket) => {
     } else {
       //Gameover case
       if (player.pos.y < 1) {
+        socket.socket.emit('GameOver', { userName });
         setGameOver(true);
         setDropTime(null);
       }
@@ -157,6 +164,7 @@ const Tetris = (socket) => {
   };
 
   useInterval(() => {
+    if (gameOver) return;
     emitData();
     drop(player, stage);
   }, dropTime);
@@ -177,7 +185,7 @@ const Tetris = (socket) => {
         <Stage stage={stage} ready={ready} />
         <aside>
           {gameOver ? (
-            <Display gameOver={gameOver} text="Game Over" />
+            <Display gameOver={gameOver} text={gameOverText} />
           ) : (
             <div>
               <Display gameOver={false} text={`Score: ${score}`} />

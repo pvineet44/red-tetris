@@ -76,7 +76,6 @@ export const usePlayer = () => {
         setIsFinalTetro(true)
         console.log("FINAL TETRA", tetramino, height)
         const _newTetramino = [];
-        console.log(tetramino.length, tetramino[1].indexOf('Z'), tetramino[2].indexOf('S'), tetramino[2][1])
         var cutPoint =  (tetramino.length === 3 && (tetramino[1][1] === 'S' || tetramino[1][1] === 'Z')) ? tetramino.length - height - 2 : tetramino.length - height - 1;
 
         for (let i = 0; i < tetramino.length; i++) {

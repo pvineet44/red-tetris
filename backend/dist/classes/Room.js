@@ -58,5 +58,31 @@ class Room {
             i--;
         }
     }
+    isGameOver() {
+        var iterator = this.players.keys();
+        var i = this.players.size;
+        var count = 0;
+        while (i > 0) {
+            var player = this.players.get(iterator.next().value);
+            if (player && player.status === PLAYER_STATUS.GAMEOVER) {
+                count++;
+            }
+            i--;
+        }
+        if (this.players.size - count === 1)
+            return true;
+        else
+            return false;
+    }
+    getWinnerName() {
+        var iterator = this.players.keys();
+        var i = this.players.size;
+        while (i > 0) {
+            var player = this.players.get(iterator.next().value);
+            if (player && player.status !== PLAYER_STATUS.GAMEOVER)
+                return player.name;
+        }
+        return undefined;
+    }
 }
 module.exports = Room;
