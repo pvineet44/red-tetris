@@ -1,9 +1,14 @@
 import React from 'react';
 import { StyledButton } from '../styles/StyledStartButton';
 
-const StartButton = ({ callback, text }) => {
+const StartButton = ({ callback, text, disabled }) => {
   return (
-    <StyledButton onClick={callback} className="learn-more" type="submit">
+    <StyledButton
+      disabled={disabled}
+      onClick={callback}
+      className="learn-more"
+      type="submit"
+    >
       {text}
     </StyledButton>
   );

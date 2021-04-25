@@ -98,6 +98,8 @@ class SocketManager {
   _getTetros(): void {
     this.socket.on('getTetros', () => {
       console.log('GET TETROS  CALLED');
+      var room = Rooms.get(this.roomName);
+      room.gameStarted();
       this.emit('tetroArray', randomTetrominoArray());
     });
   }

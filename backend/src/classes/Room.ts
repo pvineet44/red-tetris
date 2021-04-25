@@ -53,12 +53,21 @@ class Room {
     var i = this.players.size;
     while (i > 0) {
       var player = this.players.get(iterator.next().value);
-      console.log(player?.name, player?.status);
       if (player?.status != PLAYER_STATUS.READY && player?.id != this.owner)
         return false;
       i--;
     }
     return true;
+  }
+
+  gameStarted(): void {
+    var iterator = this.players.keys();
+    var i = this.players.size;
+    while (i > 0) {
+      var player = this.players.get(iterator.next().value);
+      if (player) player.status = PLAYER_STATUS.INGAME;
+      i--;
+    }
   }
 }
 

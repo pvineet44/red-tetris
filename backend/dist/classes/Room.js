@@ -42,12 +42,21 @@ class Room {
         var i = this.players.size;
         while (i > 0) {
             var player = this.players.get(iterator.next().value);
-            console.log(player === null || player === void 0 ? void 0 : player.name, player === null || player === void 0 ? void 0 : player.status);
             if ((player === null || player === void 0 ? void 0 : player.status) != PLAYER_STATUS.READY && (player === null || player === void 0 ? void 0 : player.id) != this.owner)
                 return false;
             i--;
         }
         return true;
+    }
+    gameStarted() {
+        var iterator = this.players.keys();
+        var i = this.players.size;
+        while (i > 0) {
+            var player = this.players.get(iterator.next().value);
+            if (player)
+                player.status = PLAYER_STATUS.INGAME;
+            i--;
+        }
     }
 }
 module.exports = Room;

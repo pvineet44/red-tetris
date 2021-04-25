@@ -26,6 +26,7 @@ const Tetris = (socket) => {
   const [gameOver, setGameOver] = useState(false);
   const [ready, isReady] = useState(false);
   const [start, setStart] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   // const socket = socket.socket;
   const [
     player,
@@ -92,15 +93,17 @@ const Tetris = (socket) => {
   };
 
   const startGame = async () => {
-    console.log('starting!: ', start);
+    console.log('starting!: ', start, gamePlayers);
     //Reset everything
     // await socket.socket.emit('gameStarted');
-    if (!start) return;
+    if (!start && gamePlayers.length !== 1) return;
+    setDisabled(true);
     await socket.socket.emit('getTetros');
   };
 
   const onReady = () => {
     isReady(true);
+    setDisabled(true);
     socket.socket.emit('ready', userName);
   };
 
@@ -184,6 +187,7 @@ const Tetris = (socket) => {
           )}
           <StartButton
             text={owner ? 'Start Game' : 'Ready'}
+            disabled={disabled}
             callback={owner ? () => startGame() : () => onReady()}
           />
           <OpponentViewWrapper>
