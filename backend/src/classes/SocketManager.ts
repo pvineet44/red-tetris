@@ -24,6 +24,7 @@ class SocketManager {
     this._stage();
     this._getTetros();
     this._onDisconnecting();
+    this._onPenalty();
   }
 
   emit(event: string, data: any): void {
@@ -133,6 +134,14 @@ class SocketManager {
       }
       this.emit('Game', playerArray); //tetris component
     }
+  }
+
+  _onPenalty(): void {
+    this.socket.on('penalty', (rows: number) => {
+      console.log('rows cleared: ', rows);
+      // if (Rooms.get(this.roomName).players.size > 1)
+      //   this.socket.emit('addPenalty', rows);
+    });
   }
 }
 
