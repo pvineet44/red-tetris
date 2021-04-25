@@ -1,3 +1,8 @@
+export {};
+
+const _helper = require('../gameHelper');
+const { PLAYER_STATUS } = _helper;
+
 class Room {
   id: string;
   players: Map<string, Player>;
@@ -17,6 +22,18 @@ class Room {
     return this.players.get(playerId);
   }
 
+  findPlayerByName(playerName: string): Player | undefined {
+    // console.log(this.players.keys());
+    var iterator = this.players.keys();
+    var i = this.players.size;
+    while (i > 0) {
+      var player = this.players.get(iterator.next().value);
+      if (player?.name === playerName) return player;
+      i--;
+    }
+    return undefined;
+  }
+
   removePlayerById(playerId: string): boolean {
     return this.players.delete(playerId);
   }
@@ -29,6 +46,19 @@ class Room {
     let _player = this.players.get(playerId);
     if (!_player) return;
     _player.status = status;
+  }
+
+  allPlayersReady(): boolean {
+    var iterator = this.players.keys();
+    var i = this.players.size;
+    while (i > 0) {
+      var player = this.players.get(iterator.next().value);
+      console.log(player?.name, player?.status);
+      if (player?.status != PLAYER_STATUS.READY && player?.id != this.owner)
+        return false;
+      i--;
+    }
+    return true;
   }
 }
 

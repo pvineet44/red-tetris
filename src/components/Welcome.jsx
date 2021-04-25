@@ -11,6 +11,7 @@ import {
   Logo,
   WelcomeForm,
   ErrorMessage,
+  StyledButton,
 } from '../styles/StyledWelcome';
 import tetrisLogo from '../assets/images/Tetris.png';
 import ReactHowler from 'react-howler';
@@ -89,9 +90,13 @@ const Welcome = (props) => {
               />
               <span>room name:</span>
             </label>
-            <button className="learn-more" type="submit" onClick={handleSubmit}>
+            <StyledButton
+              className="learn-more"
+              type="submit"
+              onClick={handleSubmit}
+            >
               Play!
-            </button>
+            </StyledButton>
             {showErrorMessage ? (
               <ErrorMessage>{errorMessage}</ErrorMessage>
             ) : null}

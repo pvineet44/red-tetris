@@ -24,6 +24,7 @@ const Tetris = (socket) => {
   const { roomName, userName } = useParams();
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
+  const [ready, isReady] = useState(false);
   // const socket = socket.socket;
   const [
     player,
@@ -87,6 +88,11 @@ const Tetris = (socket) => {
     });
   };
 
+  const onReady = () => {
+    isReady(true);
+    socket.socket.emit('ready', userName);
+  };
+
   const drop = (player, stage) => {
     if (!checkCollision(player, stage, { x: 0, y: 1 })) {
       updatePlayerPos({ x: 0, y: 1, collided: false });
@@ -122,7 +128,7 @@ const Tetris = (socket) => {
       }
     }
     await updatePlayerPos({ x: 0, y: i - 1, collided: true });
-  }
+  };
 
   const move = (e) => {
     console.log(e.keyCode);
@@ -154,7 +160,7 @@ const Tetris = (socket) => {
       onKeyUp={(e) => keyUp(e)}
     >
       <StyledTetris>
-        <Stage stage={stage} />
+        <Stage stage={stage} ready={ready} />
         <aside>
           {gameOver ? (
             <Display gameOver={gameOver} text="Game Over" />
@@ -167,7 +173,8 @@ const Tetris = (socket) => {
           )}
           <StartButton
             text={owner ? 'Start Game' : 'Ready'}
-            callback={() => startGame()}
+            disabled={owner ? true : false}
+            callback={owner ? () => startGame() : () => onReady()}
           />
           <OpponentViewWrapper>
             {gamePlayers.map((player, index) => (

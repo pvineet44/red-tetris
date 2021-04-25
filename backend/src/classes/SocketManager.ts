@@ -2,6 +2,8 @@ import { randomTetrominoArray } from '../tetrominos';
 const { Rooms } = require('../Rooms');
 const Room = require('./Room');
 const Player = require('./Player');
+const _helper = require('../gameHelper');
+const { PLAYER_STATUS } = _helper;
 
 class SocketManager {
   io: any;
@@ -25,6 +27,7 @@ class SocketManager {
     this._getTetros();
     this._onDisconnecting();
     this._onPenalty();
+    this._onReady();
   }
 
   emit(event: string, data: any): void {
@@ -141,6 +144,18 @@ class SocketManager {
       console.log('rows cleared: ', rows);
       // if (Rooms.get(this.roomName).players.size > 1)
       //   this.socket.emit('addPenalty', rows);
+    });
+  }
+
+  _onReady(): void {
+    this.socket.on('ready', (playerName: string) => {
+      // console.log('ready: ', playerName);
+      var room = Rooms.get(this.roomName);
+      if (!room) return;
+      let _player = room.findPlayerByName(playerName);
+      _player.updatePlayerStatus(PLAYER_STATUS.READY);
+      // if (room.allPlayersReady()) console.log('Yo!');
+      this.emit('OpponentReady', playerName);
     });
   }
 }

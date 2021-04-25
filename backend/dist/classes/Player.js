@@ -8,5 +8,8 @@ class Player {
         this.status = PLAYER_STATUS.INIT;
         this.score = 0;
     }
+    updatePlayerStatus(status) {
+        this.status = status;
+    }
 }
 module.exports = Player;
