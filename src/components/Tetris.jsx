@@ -35,7 +35,11 @@ const Tetris = (socket) => {
     isFinalTetro,
     initFinalTetroCheck,
   ] = usePlayer();
-  const [stage, setStage, rowsCleared] = useStage(player, resetPlayer);
+  const [stage, setStage, rowsCleared] = useStage(
+    player,
+    resetPlayer,
+    socket.socket
+  );
   const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(
     rowsCleared
   );
@@ -55,12 +59,11 @@ const Tetris = (socket) => {
   }, []);
 
   const movePlayer = (dir) => {
-    if (isFinalTetro)
-      return;
+    if (isFinalTetro) return;
     if (!checkCollision(player, stage, { x: dir, y: 0 })) {
       updatePlayerPos({ x: dir, y: 0 });
     }
-    emitData()
+    emitData();
   };
 
   const setValues = async (tetroArrayServ) => {
@@ -163,7 +166,11 @@ const Tetris = (socket) => {
               >
                 {player.playerName === userName ? null : (
                   <div>
-                    <OpponentView stage={player.stage ? player.stage : stage} userName={player.playerName} socket={socket} />
+                    <OpponentView
+                      stage={player.stage ? player.stage : stage}
+                      userName={player.playerName}
+                      socket={socket}
+                    />
                   </div>
                 )}
               </div>
