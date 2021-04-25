@@ -43,7 +43,7 @@ export const StyledButton = styled.button`
   font-family: inherit;
   &.learn-more {
     margin-bottom: 40px;
-  width: 85%;
+    width: 100%;
     align-items: center;
     justify-content: center;
     display: flex;

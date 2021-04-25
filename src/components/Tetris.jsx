@@ -25,6 +25,7 @@ const Tetris = (socket) => {
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [ready, isReady] = useState(false);
+  const [start, setStart] = useState(false);
   // const socket = socket.socket;
   const [
     player,
@@ -57,6 +58,15 @@ const Tetris = (socket) => {
       });
       setGamePlayers(data);
     });
+    socket.socket.on('CanStart', (data) => {
+      console.log('Can start now!', owner);
+      setStart(true);
+    });
+    socket.socket.on('tetroArray', async (tetroArrayServ) => {
+      isReady(false);
+      console.log('recv tetro', tetroArrayServ);
+      setValues(tetroArrayServ);
+    });
   }, []);
 
   const movePlayer = (dir) => {
@@ -66,6 +76,8 @@ const Tetris = (socket) => {
     }
     emitData();
   };
+
+  console.log('start button: ', owner && gamePlayers.length !== 1 && !start);
 
   const setValues = async (tetroArrayServ) => {
     await initFinalTetroCheck();
@@ -80,12 +92,11 @@ const Tetris = (socket) => {
   };
 
   const startGame = async () => {
-    console.log('starting!');
+    console.log('starting!: ', start);
     //Reset everything
+    // await socket.socket.emit('gameStarted');
+    if (!start) return;
     await socket.socket.emit('getTetros');
-    socket.socket.on('tetroArray', async (tetroArrayServ) => {
-      setValues(tetroArrayServ);
-    });
   };
 
   const onReady = () => {
@@ -173,7 +184,6 @@ const Tetris = (socket) => {
           )}
           <StartButton
             text={owner ? 'Start Game' : 'Ready'}
-            disabled={owner ? true : false}
             callback={owner ? () => startGame() : () => onReady()}
           />
           <OpponentViewWrapper>

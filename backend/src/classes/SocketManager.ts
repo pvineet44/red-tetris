@@ -98,7 +98,7 @@ class SocketManager {
   _getTetros(): void {
     this.socket.on('getTetros', () => {
       console.log('GET TETROS  CALLED');
-      this.socket.emit('tetroArray', randomTetrominoArray());
+      this.emit('tetroArray', randomTetrominoArray());
     });
   }
 
@@ -154,8 +154,11 @@ class SocketManager {
       if (!room) return;
       let _player = room.findPlayerByName(playerName);
       _player.updatePlayerStatus(PLAYER_STATUS.READY);
-      // if (room.allPlayersReady()) console.log('Yo!');
       this.emit('OpponentReady', playerName);
+      if (room.allPlayersReady()) {
+        console.log('can start');
+        this.emit('CanStart', '');
+      }
     });
   }
 }

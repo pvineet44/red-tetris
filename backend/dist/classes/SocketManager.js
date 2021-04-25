@@ -89,7 +89,7 @@ class SocketManager {
     _getTetros() {
         this.socket.on('getTetros', () => {
             console.log('GET TETROS  CALLED');
-            this.socket.emit('tetroArray', tetrominos_1.randomTetrominoArray());
+            this.emit('tetroArray', tetrominos_1.randomTetrominoArray());
         });
     }
     _onDisconnecting() {
@@ -139,8 +139,11 @@ class SocketManager {
                 return;
             let _player = room.findPlayerByName(playerName);
             _player.updatePlayerStatus(PLAYER_STATUS.READY);
-            // if (room.allPlayersReady()) console.log('Yo!');
             this.emit('OpponentReady', playerName);
+            if (room.allPlayersReady()) {
+                console.log('can start');
+                this.emit('CanStart', '');
+            }
         });
     }
 }
