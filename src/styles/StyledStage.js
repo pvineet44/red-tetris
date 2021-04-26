@@ -16,11 +16,19 @@ export const StyledStage = styled.div`
   background: #111;
 `;
 
+// export const StyledStatus = styled.div`
+//   color: white;
+//   position: absolute;
+//   right: 67vw;
+//   top: 50vh;
+//   font-family: Pixel, Arial, Helvetica, sans-serif;
+//   /* font-size: 5vh; */
+// `;
 export const StyledStatus = styled.div`
   color: white;
-  position: absolute;
-  right: 67vw;
-  top: 50vh;
+  position: relative;
+  left: calc(4.5 * 25vw / ${(props) => props.width});
+  top: calc(8.5 * 50vw / ${(props) => props.height});
   font-family: Pixel, Arial, Helvetica, sans-serif;
   /* font-size: 5vh; */
 `;

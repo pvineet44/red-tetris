@@ -9,7 +9,11 @@ import Cell from './Cell';
 const Stage = ({ stage, ready }) => {
   return (
     <StyledStage width={stage[0].length} height={stage.length}>
-      {ready ? <StyledStatus>Ready!</StyledStatus> : null}
+      {ready ? (
+        <StyledStatus width={stage[0].length} height={stage.length}>
+          Ready!
+        </StyledStatus>
+      ) : null}
       {stage.map((row) =>
         row.map((cell, x) => <Cell key={x} type={cell[0]} />)
       )}
