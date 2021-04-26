@@ -139,8 +139,13 @@ class SocketManager {
   _onPenalty(): void {
     this.socket.on('penalty', (rows: number) => {
       console.log('rows cleared: ', rows);
-      // if (Rooms.get(this.roomName).players.size > 1)
-      //   this.socket.emit('addPenalty', rows);
+      console.log(Rooms.get(this.roomName).players.size, "is size")
+      console.log(Rooms.get(this.roomName).players.length, "is len")
+      if (Rooms.get(this.roomName).players.size > 1)
+      {
+        console.log("addPenalty sent")
+        this.socket.emit('addPenalty', rows);
+      } 
     });
   }
 }

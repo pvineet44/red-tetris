@@ -34,7 +34,7 @@ export const usePlayer = () => {
     }
 
     const playerRotate = (stage, dir) => {
-        console.log('PLAYER ROTATE CALLED!')
+        // console.log('PLAYER ROTATE CALLED!')
         if (player.pos.y + player.tetrimino.length <= 20) {
             const clonedPlayer = JSON.parse(JSON.stringify(player))
             clonedPlayer.tetrimino = rotate(clonedPlayer.tetrimino, dir)
@@ -74,9 +74,8 @@ export const usePlayer = () => {
 
     const getFinalTetramino = (tetramino, height) => {
         setIsFinalTetro(true)
-        console.log("FINAL TETRA", tetramino, height)
+        // console.log("FINAL TETRA", tetramino, height)
         const _newTetramino = [];
-        console.log(tetramino.length, tetramino[1].indexOf('Z'), tetramino[2].indexOf('S'), tetramino[2][1])
         var cutPoint =  (tetramino.length === 3 && (tetramino[1][1] === 'S' || tetramino[1][1] === 'Z')) ? tetramino.length - height - 2 : tetramino.length - height - 1;
 
         for (let i = 0; i < tetramino.length; i++) {
@@ -101,7 +100,7 @@ export const usePlayer = () => {
                 if( player.tetrimino && player.tetrimino[1] && player.tetrimino[1][1] === 'T')
                     _remHeight = _remHeight + 1;
                 _newTetramino = getFinalTetramino(_newTetramino, _remHeight);
-                console.log('GAME OVER!')
+                // console.log('GAME OVER!')
             }
         }
         setTetroNumber(tetroNumber + 1);

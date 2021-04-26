@@ -10,7 +10,7 @@ export const useStage = (player, resetPlayer, socket) => {
     {
         let _count = 0;
         const _ack = newStage.reduce((ack, row) => {
-            if (row.findIndex((cell) => cell[0] === 0) === -1) {
+            if (row.findIndex((cell) => cell[0] === 0) === -1 && row.findIndex((cell) => cell[0] === 'X') === -1) {
                 setRowsCleared(prev => prev + 1);
                 _count++;
                 ack.unshift(new Array(newStage[0].length).fill([0, 'clear']));
@@ -20,10 +20,22 @@ export const useStage = (player, resetPlayer, socket) => {
             return ack;
         }, [])
         if (_count > 1){
-            console.log('Count: ', _count);
+            // console.log('Count: ', _count);
             socket.emit('penalty', (_count - 1));
         }
         return _ack
+    }
+
+    const addPenaltyRows = async (rows) => {
+        var newStage = [];
+        var i = 0;
+
+        for(i = rows; i < stage.length; i++)
+            newStage.push(JSON.parse(JSON.stringify(stage[i])));
+        for(i = 0; i < rows; i++)
+        newStage.push(new Array(newStage[0].length).fill(['X', 'merged']));
+        // console.log("Stage", stage, "NEW stage", newStage)
+        await setStage(newStage)
     }
             
 
@@ -56,7 +68,11 @@ export const useStage = (player, resetPlayer, socket) => {
 
     useEffect(() => {
         setRowsCleared(0);
+        socket.on('addPenalty', async (rows) => {
+            console.log("ADD PENA:TY CALLED")
+            addPenaltyRows(rows);
+        })
         setStage((prev) => updateStage(prev))
     }, [player, resetPlayer])
-    return [stage, setStage, rowsCleared, updateStage];
+    return [stage, setStage, rowsCleared, updateStage, addPenaltyRows];
 }

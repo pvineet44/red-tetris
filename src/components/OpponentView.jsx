@@ -11,7 +11,6 @@ const OpponentView = ({ stage, userName, socket }) => {
 
   useEffect(() => {
     socket.socket.on('OpponentStage', async (oppStage) => {
-      console.log("Listening", oppStage.userName, userName)
       if(userName === oppStage.userName)
         await setDispStage(oppStage.stage)
     });

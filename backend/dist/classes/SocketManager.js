@@ -80,7 +80,7 @@ class SocketManager {
     }
     _stage() {
         this.socket.on('stage', (stage) => {
-            this.socket.broadcast.emit('OpponentStage', stage);
+            this.socket.to(this.roomName).emit('OpponentStage', stage);
         });
     }
     _getTetros() {
@@ -124,8 +124,12 @@ class SocketManager {
     _onPenalty() {
         this.socket.on('penalty', (rows) => {
             console.log('rows cleared: ', rows);
-            // if (Rooms.get(this.roomName).players.size > 1)
-            //   this.socket.emit('addPenalty', rows);
+            console.log(Rooms.get(this.roomName).players.size, "is size");
+            console.log(Rooms.get(this.roomName).players.length, "is len");
+            if (Rooms.get(this.roomName).players.size > 1) {
+                console.log("addPenalty sent");
+                this.socket.to(this.roomName).emit('addPenalty', rows);
+            }
         });
     }
 }

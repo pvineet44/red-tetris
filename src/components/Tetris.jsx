@@ -35,7 +35,7 @@ const Tetris = (socket) => {
     isFinalTetro,
     initFinalTetroCheck,
   ] = usePlayer();
-  const [stage, setStage, rowsCleared] = useStage(
+  const [stage, setStage, rowsCleared, updateStage, addPenaltyRows] = useStage(
     player,
     resetPlayer,
     socket.socket
@@ -48,9 +48,9 @@ const Tetris = (socket) => {
   const [owner, setOwner] = useState(false);
 
   useEffect(() => {
-    console.log('I am ', userName);
+    // console.log('I am ', userName);
     socket.socket.on('Game', async (data) => {
-      console.log(data);
+      // console.log(data);
       data.forEach((player) => {
         if (player.playerName === userName && player.isOwner) setOwner(true);
       });
@@ -79,7 +79,7 @@ const Tetris = (socket) => {
   };
 
   const startGame = async () => {
-    console.log('starting!');
+    // console.log('starting!');
     //Reset everything
     await socket.socket.emit('getTetros');
     socket.socket.on('tetroArray', async (tetroArrayServ) => {
@@ -125,7 +125,7 @@ const Tetris = (socket) => {
   }
 
   const move = (e) => {
-    console.log(e.keyCode);
+    // console.log(e.keyCode);
     if (!gameOver) {
       if (e.keyCode === 37) movePlayer(-1);
       else if (e.keyCode === 39) movePlayer(1);
