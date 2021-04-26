@@ -37,13 +37,7 @@ const Welcome = (props) => {
         roomName: roomName.toLowerCase(),
         userName: userName.toLowerCase(),
       });
-      socket.on('MaxLimit', (data) => {
-        console.log('error: ', data);
-        setShowErrorMessage(true);
-        setErrorMessage(data);
-        setLoading(false);
-      });
-      socket.on('UserNameTaken', (data) => {
+      socket.on('Error', (data) => {
         console.log('error: ', data);
         setShowErrorMessage(true);
         setErrorMessage(data);

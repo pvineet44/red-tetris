@@ -124,6 +124,7 @@ const Tetris = (socket) => {
         socket.socket.emit('GameOver', { userName });
         setGameOver(true);
         setDropTime(null);
+        if (gamePlayers.length === 1) setDisabled(false);
       }
       updatePlayerPos({ x: 0, y: 0, collided: true });
     }

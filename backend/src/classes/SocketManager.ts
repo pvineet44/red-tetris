@@ -44,21 +44,25 @@ class SocketManager {
       const { roomName, userName } = data;
       if (Rooms.has(roomName)) {
         var room = Rooms.get(roomName);
+        console.log('Room: ', room);
+        if (room.isStarted) {
+          this.emitSelf('Error', 'Game has already started');
+          return;
+        }
         this.roomName = roomName;
         if (room.players.size >= 3) {
           console.log('LIMIT!');
-          this.emitSelf('MaxLimit', 'Room is Full.');
+          this.emitSelf('Error', 'Room is Full.');
           return;
         }
-        if (room.players.get(userName)) {
+        if (room.findPlayerByName(userName)) {
           // get player by userName need to make this.
           console.log('DUPLICATE USERNAME!');
-          this.emitSelf('UserNameTaken', 'Username is already taken');
+          this.emitSelf('Error', 'Username is already taken');
           return;
         }
         var _newPlayer = new Player(this.id, userName);
         room.addPlayer(_newPlayer);
-        //room.players.set(userName, _newPlayer);
         this.socket.join(roomName);
         let playerArray: object[] = [];
         for (let value of room.players.values()) {
@@ -201,7 +205,10 @@ class SocketManager {
       let _player = room.findPlayerById(this.id);
       _player.updatePlayerStatus(PLAYER_STATUS.GAMEOVER);
 
-      if (room.isGameOver()) this.emit('Over', room.getWinnerName());
+      if (room.isGameOver()) {
+        room.isStarted = false;
+        this.emit('Over', room.getWinnerName());
+      }
       /**
        * Case I. one player's status is not game over: GAME IS OVER
        *  a. Change losing player status to GameOver
