@@ -17,8 +17,10 @@ class Room {
         // console.log(this.players.keys());
         var iterator = this.players.keys();
         var i = this.players.size;
+        console.log('size:', i);
         while (i > 0) {
             var player = this.players.get(iterator.next().value);
+            console.log('cmp: ', player === null || player === void 0 ? void 0 : player.name, playerName);
             if ((player === null || player === void 0 ? void 0 : player.name) === playerName)
                 return player;
             i--;

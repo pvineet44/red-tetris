@@ -8,6 +8,7 @@ import sfx from './assets/sound/Tetris.mp3';
 import ReactHowler from 'react-howler';
 import Loader from './components/Loader';
 import TetrisProvider from './components/TetrisProvider';
+import { Link } from 'react-router-dom';
 
 // const SERVER = "http://localhost:" + process.env.REACT_APP_PORT;
 
