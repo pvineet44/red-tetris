@@ -72,7 +72,11 @@ const Tetris = (socket) => {
     socket.socket.on('Over', (winner) => {
       setGameOver(true);
       setDropTime(null);
-      if (winner === userName) setGameOverText('You win!');
+      if (winner === userName) {
+        setGameOverText('You win!');
+      }
+      setDisabled(false);
+      setStart(false);
     });
   }, []);
 

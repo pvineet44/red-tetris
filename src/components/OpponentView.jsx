@@ -21,6 +21,11 @@ const OpponentView = ({ stage, userName, socket }) => {
       console.log('Opponent Ready!!', opponentName);
       if (userName === opponentName) setReady(true);
     });
+
+    socket.socket.on('Over', (winner) => {
+      console.log('over', winner);
+      setReady(false);
+    });
   }, []);
 
   return (
