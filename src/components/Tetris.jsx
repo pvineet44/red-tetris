@@ -24,6 +24,10 @@ const Tetris = (socket) => {
   const { roomName, userName } = useParams();
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
+  const [ready, isReady] = useState(false);
+  const [start, setStart] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [gameOverText, setGameOverText] = useState('Game Over');
   // const socket = socket.socket;
   const [
     player,
@@ -56,6 +60,24 @@ const Tetris = (socket) => {
       });
       setGamePlayers(data);
     });
+    socket.socket.on('CanStart', (data) => {
+      console.log('Can start now!', owner);
+      setStart(true);
+    });
+    socket.socket.on('tetroArray', async (tetroArrayServ) => {
+      isReady(false);
+      console.log('recv tetro', tetroArrayServ);
+      setValues(tetroArrayServ);
+    });
+    socket.socket.on('Over', (winner) => {
+      setGameOver(true);
+      setDropTime(null);
+      if (winner === userName) {
+        setGameOverText('You win!');
+      }
+      setDisabled(false);
+      setStart(false);
+    });
   }, []);
 
   const movePlayer = (dir) => {
@@ -65,6 +87,8 @@ const Tetris = (socket) => {
     }
     emitData();
   };
+
+  console.log('start button: ', owner && gamePlayers.length !== 1 && !start);
 
   const setValues = async (tetroArrayServ) => {
     await initFinalTetroCheck();
@@ -79,12 +103,16 @@ const Tetris = (socket) => {
   };
 
   const startGame = async () => {
-    // console.log('starting!');
     //Reset everything
+    if (!start && gamePlayers.length !== 1) return;
+    setDisabled(true);
     await socket.socket.emit('getTetros');
-    socket.socket.on('tetroArray', async (tetroArrayServ) => {
-      setValues(tetroArrayServ);
-    });
+  };
+
+  const onReady = () => {
+    isReady(true);
+    setDisabled(true);
+    socket.socket.emit('ready', userName);
   };
 
   const drop = (player, stage) => {
@@ -93,6 +121,7 @@ const Tetris = (socket) => {
     } else {
       //Gameover case
       if (player.pos.y < 1) {
+        socket.socket.emit('GameOver', { userName });
         setGameOver(true);
         setDropTime(null);
       }
@@ -122,7 +151,7 @@ const Tetris = (socket) => {
       }
     }
     await updatePlayerPos({ x: 0, y: i - 1, collided: true });
-  }
+  };
 
   const move = (e) => {
     // console.log(e.keyCode);
@@ -137,6 +166,7 @@ const Tetris = (socket) => {
   };
 
   useInterval(() => {
+    if (gameOver) return;
     emitData();
     drop(player, stage);
   }, dropTime);
@@ -154,10 +184,10 @@ const Tetris = (socket) => {
       onKeyUp={(e) => keyUp(e)}
     >
       <StyledTetris>
-        <Stage stage={stage} />
+        <Stage stage={stage} ready={ready} />
         <aside>
           {gameOver ? (
-            <Display gameOver={gameOver} text="Game Over" />
+            <Display gameOver={gameOver} text={gameOverText} />
           ) : (
             <div>
               <Display gameOver={false} text={`Score: ${score}`} />
@@ -167,7 +197,8 @@ const Tetris = (socket) => {
           )}
           <StartButton
             text={owner ? 'Start Game' : 'Ready'}
-            callback={() => startGame()}
+            disabled={disabled}
+            callback={owner ? () => startGame() : () => onReady()}
           />
           <OpponentViewWrapper>
             {gamePlayers.map((player, index) => (

@@ -17,15 +17,22 @@ export const StyledOpponent = styled.div`
 `;
 
 export const StyledUserName = styled.div`
-color: white;
+/* color: white; */
+color: #382b22;
 font-size: 20px;
 font-family: Pixel, Arial, Helvetica, sans-serif;
 margin-top: 5px;
 `;
 
 export const StyledOpponentContainer = styled.div`
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-      `
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`
+export const StyledOpponentStatus = styled.div`
+  color: #382b22;
+  /* position: absolute; */
+  /* right: 67vw; */
+  /* top: 50vh; */
+  font-family: Pixel, Arial, Helvetica, sans-serif;`;

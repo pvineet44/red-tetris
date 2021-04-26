@@ -10,8 +10,10 @@ export const StyledDisplay = styled.div`
   min-height: 30px;
   width: 100%;
   border-radius: 20px;
-  color: ${(props) => (props.gameOver ? "red" : "#999")};
+  color: ${(props) => (props.gameOver ? props.text === "You win!" ? "lightgreen": "red" : "#999")};
   background: #000;
   font-size: 0.8rem;
 `;
+
+
 

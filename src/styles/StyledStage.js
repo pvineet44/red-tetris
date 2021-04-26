@@ -15,3 +15,19 @@ export const StyledStage = styled.div`
   max-width: 25vw;
   background: #111;
 `;
+
+export const StyledStatus = styled.div`
+  color: white;
+  position: absolute;
+  right: 67vw;
+  top: 50vh;
+  font-family: Pixel, Arial, Helvetica, sans-serif;
+  /* font-size: 5vh; */
+`;
+
+export const StyledStageContainer = styled.div`
+  /* display: flex; */
+  /* align-items: center;
+  justify-content: center;
+  flex-direction: column; */
+`;
