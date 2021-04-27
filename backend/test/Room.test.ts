@@ -1,0 +1,45 @@
+export {};
+const { test, expect } = require('@jest/globals');
+const Room = require('../src/classes/Room');
+const Player = require('../src/classes/Player');
+const _helper = require('../src/gameHelper');
+const { PLAYER_STATUS } = _helper;
+
+describe('Testing Room', () => {
+  it('should create an empty room object on instantiation', () => {
+    var _room;
+    expect(_room).toBeNull;
+    _room = new Room('Test');
+    expect(_room.players.size).toBe(0);
+    expect(_room.id).toBe('Test');
+    var _players = new Map();
+    var playerOne = new Player('one', 'playerOne');
+    _players.set('one', playerOne);
+    playerOne.updatePlayerStatus(PLAYER_STATUS.INIT);
+    _room.players = _players;
+    expect(_room.players.size).toBe(1);
+    expect(_room.findPlayerById('one').id).toBe('one');
+    expect(_room.findPlayerByName('playerOne').name).toBe('playerOne');
+    var playerTwo = new Player('two', 'playerTwo');
+    var playerThree = new Player('three', 'playerThree');
+    _room.addPlayer(playerTwo);
+    expect(_room.players.size).toBe(2);
+    _room.removePlayerById('one');
+    expect(_room.players.size).toBe(1);
+    _room.addPlayer(playerThree);
+    _room.setPlayerStatus(playerTwo, PLAYER_STATUS.INIT);
+    expect(_room.allPlayersReady()).toBe(false);
+    _room.setPlayerStatus('two', PLAYER_STATUS.READY);
+    _room.setPlayerStatus('three', PLAYER_STATUS.READY);
+    expect(_room.allPlayersReady()).toBe(true);
+    _room.addPlayer;
+    _room.gameStarted();
+    expect(_room.isGameOver()).toBe(false);
+    _room.setPlayerStatus('two', PLAYER_STATUS.GAMEOVER);
+    expect(_room.isGameOver()).toBe(true);
+    expect(_room.getWinnerName()).toBe('playerThree');
+    _room.setPlayerStatus('three', PLAYER_STATUS.GAMEOVER);
+    expect(_room.getWinnerName()).toBe(undefined);
+    expect(_room.findPlayerByName('playerFour')).toBe(undefined);
+  });
+});
