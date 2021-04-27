@@ -67,7 +67,20 @@ it("Test collision", () => {
         ],
         collided: false,
     }
+
+    let player3 = {
+        pos: {
+            x: 17,
+            y: 17,
+        },
+        tetrimino: [
+            ['O', 'O'],
+            ['O', 'O'],
+        ],
+        collided: false,
+    }
     expect(checkCollision(player, createStage(), { x: 0, y: 1 })).toBe(true)
     expect(checkCollision(player1, createStage(), { x: 0, y: 1 })).toBe(undefined)
     expect(checkCollision(player2, createStage(), { x: 0, y: 1 })).toBe(undefined)
+    expect(checkCollision(player3, createStage(), { x: 0, y: 1 })).toBe(true)
 });

@@ -9,7 +9,7 @@ import { render, fireEvent } from "@testing-library/react";
 import ToggleSound from '../components/ToggleSound';
 import { MemoryRouter } from 'react-router';
 import { useInterval } from '../hooks/useInterval';
-import {renderHook, act} from '@testing-library/react-hooks'
+import { renderHook, act } from '@testing-library/react-hooks'
 import { usePlayer } from '../hooks/usePlayer';
 import { useStage } from '../hooks/useStage';
 import { checkCollision, createStage } from "../gameHelpers";
@@ -21,7 +21,7 @@ import ReactRouter from 'react-router'
 
 it("renders without crashing", () => {
   const app = shallow(<App />);
-  const { getByText, getByPlaceholderText } = render(<MemoryRouter><App><Welcome/></App></MemoryRouter>);
+  const { getByText, getByPlaceholderText } = render(<MemoryRouter><App><Welcome /></App></MemoryRouter>);
 });
 
 it("test welcome screen", () => {
@@ -41,8 +41,8 @@ it("test toggle sound", () => {
 });
 
 it("usePlayer test", () => {
-  
-  const {result} = renderHook(() => usePlayer());
+
+  const { result } = renderHook(() => usePlayer());
   const f = result.current[3];
   act(() => {
     console.log(f(createStage(), 1));
@@ -53,48 +53,48 @@ it("usePlayer test", () => {
 it("useStage test", () => {
 
   const socket = new socketClient('http://localhost:5000')
-    // jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ roomName: 'r1', userName: 'p1' });
-    // const { getByText, getByTestId, findByText, debug } = render(<Tetris socket={socket} />);
- 
+  // jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ roomName: 'r1', userName: 'p1' });
+  // const { getByText, getByTestId, findByText, debug } = render(<Tetris socket={socket} />);
+
   const resetMock = jest.fn();
   let player = {
     pos: {
-        x: 10,
-        y: 10,
+      x: 10,
+      y: 10,
     },
     tetrimino: [
-        [0, 'I', 0, 0],
-        [0, 'I', 0, 0],
-        [0, 'I', 0, 0],
-        [0, 'I', 0, 0]
+      [0, 'I', 0, 0],
+      [0, 'I', 0, 0],
+      [0, 'I', 0, 0],
+      [0, 'I', 0, 0]
     ],
     collided: true,
-}
+  }
 
-let stage = [
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ 
-      ["O", "merged"],  ["O", "merged"], ["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],
-  ],
-]
+  let stage = [
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [
+      ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"],
+    ],
+  ]
 
   const { result } = renderHook(() => useStage(player, resetMock, socket))
   console.log('result. currant', result.current[3]);
@@ -110,48 +110,48 @@ it("useStage test returns", () => {
   const socket = new socketClient('http://localhost:5000')
   let player = {
     pos: {
-        x: 10,
-        y: 10,
+      x: 10,
+      y: 10,
     },
     tetrimino: [
-        [0, 'I', 0, 0],
-        [0, 'I', 0, 0],
-        [0, 'I', 0, 0],
-        [0, 'I', 0, 0]
+      [0, 'I', 0, 0],
+      [0, 'I', 0, 0],
+      [0, 'I', 0, 0],
+      [0, 'I', 0, 0]
     ],
     collided: false,
-}
+  }
 
-let stage = [
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"],  [0, "clear"]],
-  [ 
-      ["O", "merged"],  ["O", "merged"], ["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],["O", "merged"],
-  ],
-]
+  let stage = [
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [[0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"], [0, "clear"]],
+    [
+      ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"], ["O", "merged"],
+    ],
+  ]
 
   const { result } = renderHook(() => useStage(player, resetMock, socket))
   console.log('result. currant', result.current[3]);
   const f = result.current[3];
   act(() => {
-  f(stage)
+    f(stage)
   })
 })
 
