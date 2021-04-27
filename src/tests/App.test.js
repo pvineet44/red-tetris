@@ -14,6 +14,9 @@ import { usePlayer } from '../hooks/usePlayer';
 import { useStage } from '../hooks/useStage';
 import { checkCollision, createStage } from "../gameHelpers";
 import TestingDemo from '../components/TestingDemo';
+import Tetris from '../components/Tetris';
+import socketClient from 'socket.io-client';
+import ReactRouter from 'react-router'
 
 
 it("renders without crashing", () => {
@@ -49,6 +52,10 @@ it("usePlayer test", () => {
 
 it("useStage test", () => {
 
+  const socket = new socketClient('http://localhost:5000')
+    // jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ roomName: 'r1', userName: 'p1' });
+    // const { getByText, getByTestId, findByText, debug } = render(<Tetris socket={socket} />);
+ 
   const resetMock = jest.fn();
   let player = {
     pos: {
@@ -89,7 +96,7 @@ let stage = [
   ],
 ]
 
-  const { result } = renderHook(() => useStage(player, resetMock))
+  const { result } = renderHook(() => useStage(player, resetMock, socket))
   console.log('result. currant', result.current[3]);
   const f = result.current[3];
   act(() => {
@@ -100,6 +107,7 @@ let stage = [
 it("useStage test returns", () => {
 
   const resetMock = jest.fn();
+  const socket = new socketClient('http://localhost:5000')
   let player = {
     pos: {
         x: 10,
@@ -139,7 +147,7 @@ let stage = [
   ],
 ]
 
-  const { result } = renderHook(() => useStage(player, resetMock))
+  const { result } = renderHook(() => useStage(player, resetMock, socket))
   console.log('result. currant', result.current[3]);
   const f = result.current[3];
   act(() => {

@@ -3,6 +3,7 @@ import { shallow, configure, mount } from 'enzyme';
 configure({ adapter: new Adapter() });
 import React from "react";
 import App from "../App";
+import ReactRouter from 'react-router'
 
 import { render, fireEvent, waitFor, screen, act } from "@testing-library/react";
 import Tetris, { Tetris as TetrisObj } from '../components/Tetris';
@@ -11,19 +12,21 @@ import { checkCollision, createStage } from "../gameHelpers";
 
 it("Test tetris movement", async () => {
     const socket = new socketClient('http://localhost:5000')
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ roomName: 'r1', userName: 'p1' });
     const { getByText, getByTestId, findByText, debug } = render(<Tetris socket={socket} />);
-    fireEvent.click(getByText("Start Game"));
+    fireEvent.click(getByText("Ready"));
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 37 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 38 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 39 });
     fireEvent.keyDown(getByTestId("tetris-wrapper"), { keyCode: 40 });
     fireEvent.keyUp(getByTestId("tetris-wrapper"), { keyCode: 40 });
 
-    expect(await findByText(("Start Game"))).toBeInTheDocument
+    expect(await findByText(("Ready"))).toBeInTheDocument
 });
 
 it("Test collision", () => {
     const socket = new socketClient('http://localhost:5000')
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ roomName: 'r1', userName: 'p1' });
     const { getByText, getByTestId, findByText } = render(<Tetris socket={socket} />);
     let player = {
         pos: {
