@@ -116,5 +116,5 @@ export const usePlayer = () => {
             collided: false,
         })
     }, [tetroNumber, tetroArray])
-    return [player, updatePlayerPos, resetPlayer, playerRotate, tetroArray, setTetroArray, isFinalTetro, initFinalTetroCheck];
+    return [player, updatePlayerPos, resetPlayer, playerRotate, tetroArray, setTetroArray, isFinalTetro, initFinalTetroCheck, getFinalTetramino];
 }

@@ -44,10 +44,15 @@ it("usePlayer test", () => {
 
   const { result } = renderHook(() => usePlayer());
   const f = result.current[3];
+  const f1 = result.current[7];
+  const tetramino = [
+    ['O', 'O'],
+    ['O', 'O'],
+];
   act(() => {
     console.log(f(createStage(), 1));
+    console.log(f1(tetramino, 3));
   });
-  console.log(result.current[3]);
 })
 
 it("useStage test", () => {
@@ -150,8 +155,10 @@ it("useStage test returns", () => {
   const { result } = renderHook(() => useStage(player, resetMock, socket))
   console.log('result. currant', result.current[3]);
   const f = result.current[3];
+  const f1 = result.current[4];
   act(() => {
     f(stage)
+    f1(3)
   })
 })
 
