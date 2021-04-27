@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for backend/src/tetrominos.ts</title>
+    <title>Code coverage report for backend/src/classes/Room.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">backend/src</a> tetrominos.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">backend/src/classes</a> Room.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>94/94</span>
+                <span class='fraction'>101/101</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">90.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>29/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>94/94</span>
+                <span class='fraction'>101/101</span>
             </div>
         
             
@@ -150,7 +150,15 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -175,6 +183,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -183,10 +199,24 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -194,149 +224,143 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1000x</span>
-<span class="cline-any cline-yes">1000x</span>
-<span class="cline-any cline-yes">1000x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1000x</span>
-<span class="cline-any cline-yes">1000x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">export const TETROMINOS: any = {
-    0: {
-        shape: [[0]], color: '0, 0, 0'
-    },
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export {};
 &nbsp;
-    I: {
-        shape: [
-            [0, 'I', 0, 0],
-            [0, 'I', 0, 0],
-            [0, 'I', 0, 0],
-            [0, 'I', 0, 0]
-        ],
-        color: '80, 227, 230',
-    },
+const _helper = require('../gameHelper');
+const { PLAYER_STATUS } = _helper;
 &nbsp;
-    J: {
-        shape: [
-            [0, 'J', 0],
-            [0, 'J', 0],
-            ['J', 'J', 0],
-        ],
-        color: '36, 95, 223',
-    },
+class Room {
+  id: string;
+  players: Map&lt;string, Player&gt;;
+  owner: null | string;
+  winner: null | string;
+  isStarted: boolean;
 &nbsp;
-    L: {
-        shape: [
-            [0, 'L', 0],
-            [0, 'L', 0],
-            [0, 'L', 'L'],
-        ],
-        color: '223, 173, 36',
-    },
+  constructor(roomName: string) {
+    this.id = roomName;
+    this.players = new Map&lt;string, Player&gt;();
+    this.owner = null;
+    this.winner = null;
+    this.isStarted = false;
+  }
 &nbsp;
-    O: {
-        shape: [
-            ['O', 'O'],
-            ['O', 'O'],
-        ],
-        color: '223, 217, 36',
-    },
+  findPlayerById(playerId: string): Player | undefined {
+    return this.players.get(playerId);
+  }
 &nbsp;
-    S: {
-        shape: [
-            [0, 'S', 'S'],
-            ['S', 'S', 0],
-            [0, 0, 0]
-        ],
-        color: '48, 211, 56',
-    },
-&nbsp;
-    T: {
-        shape: [
-            [0, 0, 0],
-            ['T', 'T', 'T'],
-            [0, 'T', 0]
-        ],
-        color: '132, 61, 198',
-    },
-&nbsp;
-    Z: {
-        shape: [
-            ['Z', 'Z', 0],
-            [0, 'Z', 'Z'],
-            [0, 0, 0]
-        ],
-        color: '227, 78, 78',
-    },
-&nbsp;
-    X: {
-        shape: [
-            ['X', 0, 'X'],
-            [0, 'X', 0],
-            ['X', 0, 'X']
-        ],
-        color: '255, 0, 0',
-    },
-&nbsp;
-}
-&nbsp;
-const getRandomtetro = () =&gt; {
-    const tetrominos = 'IJLOSTZ';
-    return tetrominos[Math.floor(Math.random() * tetrominos.length)]
-}
-&nbsp;
-export const randomTetrominoArray = () =&gt; {
-    const tetroarray = new Array(1000)
-    // const randTetromino = 
-    //     tetrominos[Math.floor(Math.random() * tetrominos.length)];
-    for (var i = 0; i &lt; 1000; i++)
-    {
-        tetroarray[i] = TETROMINOS[getRandomtetro()]
+  findPlayerByName(playerName: string): Player | undefined {
+    // console.log(this.players.keys());
+    var iterator = this.players.keys();
+    var i = this.players.size;
+    while (i &gt; 0) {
+      var player = this.players.get(iterator.next().value);
+      if (player<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame === playerName) return player;
+      i--;
     }
-    return tetroarray
-}</pre></td></tr></table></pre>
+    return undefined;
+  }
+&nbsp;
+  removePlayerById(playerId: string): boolean {
+    return this.players.delete(playerId);
+  }
+&nbsp;
+  addPlayer(player: Player): void {
+    this.players.set(player.id, player);
+  }
+&nbsp;
+  setPlayerStatus(playerId: string, status: number): void {
+    let _player = this.players.get(playerId);
+    if (!_player) return;
+    _player.status = status;
+  }
+&nbsp;
+  allPlayersReady(): boolean {
+    var iterator = this.players.keys();
+    var i = this.players.size;
+    while (i &gt; 0) {
+      var player = this.players.get(iterator.next().value);
+      if (player<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus != PLAYER_STATUS.READY &amp;&amp; player<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d != this.owner)
+        return false;
+      i--;
+    }
+    return true;
+  }
+&nbsp;
+  gameStarted(): void {
+    var iterator = this.players.keys();
+    var i = this.players.size;
+    while (i &gt; 0) {
+      var player = this.players.get(iterator.next().value);
+      if (player) player.status = PLAYER_STATUS.INGAME;
+      i--;
+    }
+  }
+&nbsp;
+  isGameOver(): boolean {
+    var iterator = this.players.keys();
+    var i = this.players.size;
+    var count = 0;
+    while (i &gt; 0) {
+      var player = this.players.get(iterator.next().value);
+      if (player &amp;&amp; player.status === PLAYER_STATUS.GAMEOVER) {
+        count++;
+      }
+      i--;
+    }
+    if (this.players.size - count === 1) return true;
+    else return false;
+  }
+&nbsp;
+  getWinnerName(): string | undefined {
+    var iterator = this.players.keys();
+    var i = this.players.size;
+    while (i &gt; 0) {
+      var player = this.players.get(iterator.next().value);
+      if (player &amp;&amp; player.status !== PLAYER_STATUS.GAMEOVER)
+        return player.name;
+      i--;
+    }
+    return undefined;
+  }
+}
+&nbsp;
+module.exports = Room;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
@@ -346,14 +370,14 @@ export const randomTetrominoArray = () =&gt; {
                 at Tue Apr 27 2021 11:48:22 GMT+0530 (India Standard Time)
             </div>
         </div>
-        <script src="../../prettify.js"></script>
+        <script src="../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
     </body>
 </html>
     
