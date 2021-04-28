@@ -53,6 +53,7 @@ const Tetris = (socket) => {
 
   useEffect(() => {
     // console.log('I am ', userName);
+    testfx()
     socket.socket.on('Game', async (data) => {
       // console.log(data);
       data.forEach((player) => {
@@ -79,7 +80,7 @@ const Tetris = (socket) => {
       setStart(false);
     });
   }, []);
-
+  
   const movePlayer = (dir) => {
     if (isFinalTetro) return;
     if (!checkCollision(player, stage, { x: dir, y: 0 })) {
@@ -87,9 +88,9 @@ const Tetris = (socket) => {
     }
     emitData();
   };
-
+  
   console.log('start button: ', owner && gamePlayers.length !== 1 && !start);
-
+  
   const setValues = async (tetroArrayServ) => {
     await initFinalTetroCheck();
     await setTetroArray(tetroArrayServ);
@@ -101,14 +102,16 @@ const Tetris = (socket) => {
     await setRows(0);
     await setLevel(0);
   };
-
+  
   const startGame = async () => {
     //Reset everything
     if (!start && gamePlayers.length !== 1) return;
     setDisabled(true);
     await socket.socket.emit('getTetros');
   };
-
+  const startSinglePlayer = () => {return("To start single player, just start and keep playing");};
+  const startMultiPlayer = () => {return("To start multiplayer, wait for all players to be ready and then begin");};
+  
   const onReady = () => {
     isReady(true);
     setDisabled(true);
@@ -144,6 +147,16 @@ const Tetris = (socket) => {
     }
   };
 
+  const tetroBlockTypeI = () => {return("Tetro type I");};
+  const tetroBlockTypeJ = () => {return("Tetro type J");};
+  const tetroBlockTypeL = () => {return("Tetro type L");};
+  const tetroBlockTypeO = () => {return("Tetro type O");};
+  const tetroBlockTypeS = () => {return("Tetro type S");};
+  const tetroBlockTypeT = () => {return("Tetro type T");};
+  const tetroBlockTypeZ = () => {return("Tetro type Z");};
+  const tetroBlockTypeX = () => {return("Tetro type X - solid straight line");};
+  const tetroTypes = () => {console.log("Tetro types are as follows");};
+  
   const freeDropPlayer = async () => {
     var i = 0;
     for (i; i < 20; i++) {
@@ -174,6 +187,20 @@ const Tetris = (socket) => {
 
   const emitData = () => {
     socket.socket.emit('stage', { stage, userName });
+  };
+
+  const testfx = () => {
+    tetroTypes();
+    tetroBlockTypeI();
+    tetroBlockTypeJ();
+    tetroBlockTypeL();
+    tetroBlockTypeO();
+    tetroBlockTypeS();
+    tetroBlockTypeT();
+    tetroBlockTypeZ();
+    tetroBlockTypeX();
+    startSinglePlayer();
+    startMultiPlayer();
   };
 
   return (
