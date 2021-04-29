@@ -183,26 +183,26 @@ const Tetris = (socket) => {
   };
 
   const freeDropPlayer = async () => {
-    if (isFinalTetro){
-      if(player.tetrimino.length === 0)
-      {
-        {
-          //Gameover case
-            socket.socket.emit('GameOver', { userName });
-            setGameOver(true);
-            setDropTime(null);
-            console.log("GP LENGTH", gamePlayers.length)
-            if (gamePlayers.length === 1) setDisabled(false);
-          updatePlayerPos({ x: 0, y: 0, collided: true });
-        }
-      }
-      else {
-        setGameOver(true)
-        dropPlayer(true);
-      }
+    if(player.pos.y < 1)
       return
-    } 
-    console.log("Tetro len", player.tetrimino.length)
+    // if (isFinalTetro){
+    //   if(player.tetrimino.length === 0)
+    //   {
+    //     {
+    //       //Gameover case
+    //         socket.socket.emit('GameOver', { userName });
+    //         setGameOver(true);
+    //         setDropTime(null);
+    //         if (gamePlayers.length === 1) setDisabled(false);
+    //       updatePlayerPos({ x: 0, y: 0, collided: true });
+    //     }
+    //   }
+    //   else {
+    //     setGameOver(true)
+    //     dropPlayer(true);
+    //   }
+    //   return
+    // } 
     var i = 0;
     for (i; i < 20; i++) {
       if (checkCollision(player, stage, { x: 0, y: i })) {
