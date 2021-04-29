@@ -53,11 +53,13 @@ const Tetris = (socket) => {
 
   useEffect(() => {
     // console.log('I am ', userName);
-    testfx()
+    testfx();
     socket.socket.on('Game', async (data) => {
-      // console.log(data);
+      console.log('Game: ', data);
       data.forEach((player) => {
         if (player.playerName === userName && player.isOwner) setOwner(true);
+        else if (player.playerName === userName && !player.isOwner)
+          setOwner(false);
       });
       setGamePlayers(data);
     });
@@ -71,16 +73,17 @@ const Tetris = (socket) => {
       setValues(tetroArrayServ);
     });
     socket.socket.on('Over', (winner) => {
+      console.log('OVER', winner);
       setGameOver(true);
       setDropTime(null);
       if (winner === userName) {
         setGameOverText('You win!');
-      }
+      } else setGameOverText('Game Over!');
       setDisabled(false);
       setStart(false);
     });
   }, []);
-  
+
   const movePlayer = (dir) => {
     if (isFinalTetro) return;
     if (!checkCollision(player, stage, { x: dir, y: 0 })) {
@@ -102,16 +105,20 @@ const Tetris = (socket) => {
     await setRows(0);
     await setLevel(0);
   };
-  
+
   const startGame = async () => {
     //Reset everything
     if (!start && gamePlayers.length !== 1) return;
     setDisabled(true);
     await socket.socket.emit('getTetros');
   };
-  const startSinglePlayer = () => {return("To start single player, just start and keep playing");};
-  const startMultiPlayer = () => {return("To start multiplayer, wait for all players to be ready and then begin");};
-  
+  const startSinglePlayer = () => {
+    return 'To start single player, just start and keep playing';
+  };
+  const startMultiPlayer = () => {
+    return 'To start multiplayer, wait for all players to be ready and then begin';
+  };
+
   const onReady = () => {
     isReady(true);
     setDisabled(true);
@@ -147,16 +154,34 @@ const Tetris = (socket) => {
     }
   };
 
-  const tetroBlockTypeI = () => {return("Tetro type I");};
-  const tetroBlockTypeJ = () => {return("Tetro type J");};
-  const tetroBlockTypeL = () => {return("Tetro type L");};
-  const tetroBlockTypeO = () => {return("Tetro type O");};
-  const tetroBlockTypeS = () => {return("Tetro type S");};
-  const tetroBlockTypeT = () => {return("Tetro type T");};
-  const tetroBlockTypeZ = () => {return("Tetro type Z");};
-  const tetroBlockTypeX = () => {return("Tetro type X - solid straight line");};
-  const tetroTypes = () => {console.log("Tetro types are as follows");};
-  
+  const tetroBlockTypeI = () => {
+    return 'Tetro type I';
+  };
+  const tetroBlockTypeJ = () => {
+    return 'Tetro type J';
+  };
+  const tetroBlockTypeL = () => {
+    return 'Tetro type L';
+  };
+  const tetroBlockTypeO = () => {
+    return 'Tetro type O';
+  };
+  const tetroBlockTypeS = () => {
+    return 'Tetro type S';
+  };
+  const tetroBlockTypeT = () => {
+    return 'Tetro type T';
+  };
+  const tetroBlockTypeZ = () => {
+    return 'Tetro type Z';
+  };
+  const tetroBlockTypeX = () => {
+    return 'Tetro type X - solid straight line';
+  };
+  const tetroTypes = () => {
+    console.log('Tetro types are as follows');
+  };
+
   const freeDropPlayer = async () => {
     if (isFinalTetro){
       if(player.tetrimino.length === 0)

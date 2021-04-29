@@ -143,6 +143,10 @@ class SocketManager {
           isOwner: room.owner === value.id ? true : false,
         });
       }
+      if (room.isGameOver()) {
+        room.isStarted = false;
+        this.emit('Over', room.getWinnerName());
+      }
       this.emit('Game', playerArray); //tetris component
     } else if (room.isStarted && room.players.size > 1) {
       room.owner = room.players.keys().next().value;
@@ -172,13 +176,12 @@ class SocketManager {
   _onPenalty(): void {
     this.socket.on('penalty', (rows: number) => {
       console.log('rows cleared: ', rows);
-      console.log(Rooms.get(this.roomName).players.size, "is size")
-      console.log(Rooms.get(this.roomName).players.length, "is len")
-      if (Rooms.get(this.roomName).players.size > 1)
-      {
-        console.log("addPenalty sent")
+      console.log(Rooms.get(this.roomName).players.size, 'is size');
+      console.log(Rooms.get(this.roomName).players.length, 'is len');
+      if (Rooms.get(this.roomName).players.size > 1) {
+        console.log('addPenalty sent');
         this.socket.emit('addPenalty', rows);
-      } 
+      }
     });
   }
 
@@ -199,7 +202,6 @@ class SocketManager {
 
   _onGameOver(): void {
     this.socket.on('GameOver', (playerName: string) => {
-      console.log('player Name', playerName);
       var room = Rooms.get(this.roomName);
       if (!room) return;
       let _player = room.findPlayerById(this.id);
@@ -207,7 +209,16 @@ class SocketManager {
 
       if (room.isGameOver()) {
         room.isStarted = false;
+        room.owner = room.findPlayerByName(room.getWinnerName()).id;
         this.emit('Over', room.getWinnerName());
+        let playerArray: object[] = [];
+        for (let value of room.players.values()) {
+          playerArray.push({
+            playerName: value.name,
+            isOwner: room.owner === value.id ? true : false,
+          });
+        }
+        this.emit('Game', playerArray); //tetris component
       }
       /**
        * Case I. one player's status is not game over: GAME IS OVER

@@ -88,7 +88,7 @@ class SocketManager {
     }
     _stage() {
         this.socket.on('stage', (stage) => {
-            this.socket.to(this.roomName).emit('OpponentStage', stage);
+            this.socket.broadcast.emit('OpponentStage', stage);
         });
     }
     _getTetros() {
@@ -129,6 +129,10 @@ class SocketManager {
                     isOwner: room.owner === value.id ? true : false,
                 });
             }
+            if (room.isGameOver()) {
+                room.isStarted = false;
+                this.emit('Over', room.getWinnerName());
+            }
             this.emit('Game', playerArray); //tetris component
         }
         else if (room.isStarted && room.players.size > 1) {
@@ -157,11 +161,11 @@ class SocketManager {
     _onPenalty() {
         this.socket.on('penalty', (rows) => {
             console.log('rows cleared: ', rows);
-            console.log(Rooms.get(this.roomName).players.size, "is size");
-            console.log(Rooms.get(this.roomName).players.length, "is len");
+            console.log(Rooms.get(this.roomName).players.size, 'is size');
+            console.log(Rooms.get(this.roomName).players.length, 'is len');
             if (Rooms.get(this.roomName).players.size > 1) {
-                console.log("addPenalty sent");
-                this.socket.to(this.roomName).emit('addPenalty', rows);
+                console.log('addPenalty sent');
+                this.socket.emit('addPenalty', rows);
             }
         });
     }
@@ -182,7 +186,6 @@ class SocketManager {
     }
     _onGameOver() {
         this.socket.on('GameOver', (playerName) => {
-            console.log('player Name', playerName);
             var room = Rooms.get(this.roomName);
             if (!room)
                 return;
@@ -190,7 +193,16 @@ class SocketManager {
             _player.updatePlayerStatus(PLAYER_STATUS.GAMEOVER);
             if (room.isGameOver()) {
                 room.isStarted = false;
+                room.owner = room.findPlayerByName(room.getWinnerName()).id;
                 this.emit('Over', room.getWinnerName());
+                let playerArray = [];
+                for (let value of room.players.values()) {
+                    playerArray.push({
+                        playerName: value.name,
+                        isOwner: room.owner === value.id ? true : false,
+                    });
+                }
+                this.emit('Game', playerArray); //tetris component
             }
             /**
              * Case I. one player's status is not game over: GAME IS OVER
