@@ -59,7 +59,7 @@ const Welcome = (props) => {
   else
     return (
       <StyledWelcome>
-        <ToggleSound soundOn={soundOn} toggleSound={toggleSound} />
+        {/* <ToggleSound soundOn={soundOn} toggleSound={toggleSound} /> */}
         <WelcomeFormContainer>
           <WelcomeForm>
             <h1> Red Tetris</h1>
