@@ -41,5 +41,12 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script type="text/javascript" src="./bundle.js"></script>
+    <script>
+      // create a js variable to hold the APP_ENV variable from php 
+      // Disable console log on production
+          console.log = function () {};
+          console.warn = function () {};
+          console.error = function() {};
+      </script>
   </body>
 </html>

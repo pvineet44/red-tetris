@@ -76,7 +76,7 @@ const Welcome = (props) => {
             </label>
             <label>
               <input
-                id="fname"
+                id="froomname"
                 type="text"
                 name="inputfield"
                 placeholder="Enter room name here:"
