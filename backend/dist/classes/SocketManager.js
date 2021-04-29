@@ -165,7 +165,7 @@ class SocketManager {
             console.log(Rooms.get(this.roomName).players.length, 'is len');
             if (Rooms.get(this.roomName).players.size > 1) {
                 console.log('addPenalty sent');
-                this.socket.emit('addPenalty', rows);
+                this.socket.broadcast.emit('addPenalty', rows);
             }
         });
     }
