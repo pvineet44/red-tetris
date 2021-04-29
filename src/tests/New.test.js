@@ -23,7 +23,6 @@ it("usePlayer test -1", () => {
     const { result } = renderHook(() => usePlayer());
     const f = result.current[3];
     act(() => {
-      console.log("-1 test", f(createStage(), -1));
+      f(createStage(), -1)
     });
-    console.log(result.current[3]);
   })

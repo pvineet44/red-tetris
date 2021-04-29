@@ -37,9 +37,7 @@
     "eject": "react-scripts eject",
     "client": "react-scripts start",
     "dev": "concurrently \"nodemon backend/dist/app.js\" \"webpack -w \" \"webpack serve \"",
-    "test-client": "jest --config=jest.config.js --coverage --detectOpenHandles",
-    "test-server": "cd backend && jest --config=jest.config.js --coverage --detectOpenHandles",
-    "test": "npm run test-client && npm run test-server",
+    "coverage": "jest --config=jest.config.js --coverage --detectOpenHandles",
     "webpack": "webpack",
     "webpack-serve": "webpack serve"
   },

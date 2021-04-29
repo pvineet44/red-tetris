@@ -91,9 +91,9 @@ const Tetris = (socket) => {
     }
     emitData();
   };
-  
+
   // console.log('start button: ', owner && gamePlayers.length !== 1 && !start);
-  
+
   const setValues = async (tetroArrayServ) => {
     await initFinalTetroCheck();
     await setTetroArray(tetroArrayServ);
@@ -179,12 +179,11 @@ const Tetris = (socket) => {
     return 'Tetro type X - solid straight line';
   };
   const tetroTypes = () => {
-    console.log('Tetro types are as follows');
+    return 'Tetro types are as follows';
   };
 
   const freeDropPlayer = async () => {
-    if(player.pos.y < 1)
-      return
+    if (player.pos.y < 1) return;
     // if (isFinalTetro){
     //   if(player.tetrimino.length === 0)
     //   {
@@ -202,7 +201,7 @@ const Tetris = (socket) => {
     //     dropPlayer(true);
     //   }
     //   return
-    // } 
+    // }
     var i = 0;
     for (i; i < 20; i++) {
       if (checkCollision(player, stage, { x: 0, y: i })) {

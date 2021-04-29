@@ -3,13 +3,13 @@ import { useInterval } from '../hooks/useInterval';
 
 const TestingDemo = () => {
   const printHello = () => {
-    console.log('hello world!');
+    return null;
   };
 
   return (
     <div>
       This is just for testing purposes.
-      <div>{useInterval(console.log(printHello()), 1000)}</div>
+      <div>{useInterval(printHello(), 1000)}</div>
     </div>
   );
 };
