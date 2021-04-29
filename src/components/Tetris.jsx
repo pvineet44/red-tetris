@@ -89,7 +89,7 @@ const Tetris = (socket) => {
     emitData();
   };
   
-  console.log('start button: ', owner && gamePlayers.length !== 1 && !start);
+  // console.log('start button: ', owner && gamePlayers.length !== 1 && !start);
   
   const setValues = async (tetroArrayServ) => {
     await initFinalTetroCheck();
@@ -158,6 +158,26 @@ const Tetris = (socket) => {
   const tetroTypes = () => {console.log("Tetro types are as follows");};
   
   const freeDropPlayer = async () => {
+    if (isFinalTetro){
+      if(player.tetrimino.length === 0)
+      {
+        {
+          //Gameover case
+            socket.socket.emit('GameOver', { userName });
+            setGameOver(true);
+            setDropTime(null);
+            console.log("GP LENGTH", gamePlayers.length)
+            if (gamePlayers.length === 1) setDisabled(false);
+          updatePlayerPos({ x: 0, y: 0, collided: true });
+        }
+      }
+      else {
+        setGameOver(true)
+        dropPlayer(true);
+      }
+      return
+    } 
+    console.log("Tetro len", player.tetrimino.length)
     var i = 0;
     for (i; i < 20; i++) {
       if (checkCollision(player, stage, { x: 0, y: i })) {
