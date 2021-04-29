@@ -209,7 +209,12 @@ class SocketManager {
 
       if (room.isGameOver()) {
         room.isStarted = false;
-        room.owner = room.findPlayerByName(room.getWinnerName()).id;
+        console.log(
+          'winner name: ',
+          room.findPlayerByName(room.getWinnerName())
+        );
+        if (room.findPlayerByName(room.getWinnerName()))
+          room.owner = room.findPlayerByName(room.getWinnerName()).id;
         this.emit('Over', room.getWinnerName());
         let playerArray: object[] = [];
         for (let value of room.players.values()) {

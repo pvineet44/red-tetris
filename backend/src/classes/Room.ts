@@ -82,6 +82,7 @@ class Room {
       i--;
     }
     if (this.players.size - count === 1) return true;
+    else if (this.players.size === 1 && count === 1) return true;
     else return false;
   }
 
