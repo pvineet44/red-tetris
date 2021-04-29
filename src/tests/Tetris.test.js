@@ -82,6 +82,5 @@ it("Test collision", () => {
     expect(checkCollision(player, createStage(), { x: 0, y: 1 })).toBe(true)
     expect(checkCollision(player1, createStage(), { x: 0, y: 1 })).toBe(undefined)
     expect(checkCollision(player2, createStage(), { x: 0, y: 1 })).toBe(undefined)
-    console.log("COLL", checkCollision(player3, createStage(), { x: 0, y: 1 }))
     expect(checkCollision(player3, createStage(), { x: 0, y: 1 })).toBe(true)
 });
