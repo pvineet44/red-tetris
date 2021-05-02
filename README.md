@@ -1,10 +1,9 @@
-# ESLint - Airbnb style
+A multiplayer Tetris game build with React Node and Socket.io
 
-https://javascript.plainenglish.io/set-up-react-js-with-eslint-prettier-and-airbnb-cc015363a7c7
 
-# Steps for running the project
 
 npm install
 
-
 npm run dev
+
+
